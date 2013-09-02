@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   validates :password_digest, :presence => { :message => "Password can't be blank" }
-  # validates :password, :length => { :minumum => 6, :allow_nil => true }
+  validates :password, :length => { :minimum => 6, :allow_nil => true }
   validates :session_token, :username, :presence => true
 
   after_initialize :ensure_session_token
@@ -17,8 +17,7 @@ class User < ActiveRecord::Base
   		return nil
   	end
 
-  	stored_password = BCrypt::Password.new(user.password_digest)
-  	if password == stored_password
+  	if BCrypt::Password.new(user.password_digest).is_password?(password)
   		return user
   	end
 
