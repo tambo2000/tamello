@@ -11,7 +11,7 @@ gem 'ejs'
 gem 'backbone-on-rails'
 
 group :development do
-	require 'debugger'
+	# require 'debugger'
 	gem 'pry-rails'
 end
 
