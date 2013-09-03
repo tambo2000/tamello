@@ -1,0 +1,22 @@
+<div class="container">
+	<h3>My Boards
+		<a class="btn btn-success popup-with-form" href="#test-popup">Create New Board</a>
+	</h3>
+
+
+
+	<% @boards.each do |board| %>
+		<div>
+		<a class="btn btn-default" href="boards/<%= board.id %>"><%= board.title %></a><br>
+		</div>
+	<% end %>
+</div>
+
+<div id="test-popup" class="white-popup mfp-hide">
+  <h4>Popup content</h4>
+</div>
+
+ <script type="text/javascript">
+     $('.popup-with-form').magnificPopup({type:'inline'});
+
+ </script>

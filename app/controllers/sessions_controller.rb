@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     	session[:user_id] = user.id
       session[:username] = user.username
       self.current_user = user
-      redirect_to user_url(user)
+      redirect_to boards_url
     end
   end
 

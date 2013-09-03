@@ -6,6 +6,11 @@ class BoardsController < ApplicationController
 		render :index
 	end
 
+	def show
+		@board = Board.find(params[:id])
+		render :show
+	end
+
 	def create
 
 	end

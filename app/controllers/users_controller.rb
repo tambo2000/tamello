@@ -7,7 +7,9 @@ class UsersController < ApplicationController
 
     if @user.save
       self.current_user = @user
-      redirect_to user_url(@user)
+      @board = Board.new(title: "My First Board", user_id: @user.id)
+      @board.save
+      redirect_to boards_url
     else
       render :json => @user.errors.full_messages
     end
