@@ -1,7 +1,37 @@
 <div class="container">
 	<h3>My Boards
-		<a class="btn btn-success popup-with-form" href="#test-popup">Create New Board</a>
-	</h3>
+
+		<!-- Button trigger modal -->
+  	<a data-toggle="modal" href="#myModal" class="btn btn-success">Create New Board</a>
+  </h3>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<form action="<%= boards_url %>" method="post">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Add a New Board</h4>
+        </div>
+        <div class="modal-body">
+				  	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+				  	
+				  	<label for="board_title">Title</label>
+				  	<input id="board_title" type="text" class="form-control" name="board[title]">
+
+				  	<label for="board_description">Description</label>
+  					<textarea  id="board_description" class="form-control" rows="3" name="board[description]"></textarea>
+				  	
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" value="Create Board" class="btn btn-sm btn-primary">
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    </form>
+  </div><!-- /.modal -->
 
 
 
@@ -12,11 +42,8 @@
 	<% end %>
 </div>
 
-<div id="test-popup" class="white-popup mfp-hide">
-  <h4>Popup content</h4>
-</div>
-
  <script type="text/javascript">
-     $('.popup-with-form').magnificPopup({type:'inline'});
+
+     $('#myModal').modal(options)
 
  </script>
