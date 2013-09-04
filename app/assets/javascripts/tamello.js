@@ -1,13 +1,17 @@
-window.Tamello = {
+window.T = {
   Models: {},
   Collections: {},
   Views: {},
   Routers: {},
-  initialize: function() {
-    // alert('Hello from Backbone!');
+  initialize: function($rootEl, boards) {
+    new T.Routers.BoardsRouter($rootEl, boards);
+   	Backbone.history.start();
   }
 };
 
 $(document).ready(function(){
-  Tamello.initialize();
+	var boards = new T.Collections.Boards();
+	boards.fetch( { success: function() {
+  	T.initialize($("body"), boards);
+  }});
 });

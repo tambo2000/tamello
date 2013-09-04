@@ -3,12 +3,20 @@ class BoardsController < ApplicationController
 
 	def index
 		@boards = current_user.boards
-		render :index
+
+		respond_to do |format|
+			format.html { render :index }
+			format.json { render :json => @boards }
+		end
 	end
 
 	def show
 		@board = Board.find(params[:id])
-		render :show
+
+		respond_to do |format|
+			format.html { render :show }
+			format.json { render :json => @board }
+		end
 	end
 
 	def create
