@@ -6,7 +6,6 @@ T.Routers.BoardsRouter = Backbone.Router.extend({
 
   routes: {
     "": "index",
-    "boards/create": "index",
     "boards/:id": "show"
   },
 
@@ -17,14 +16,23 @@ T.Routers.BoardsRouter = Backbone.Router.extend({
       collection: that.boards
     });
 
-    that.$rootEl.html(boardsIndexView.render().$el);
+    $("div.tamello").html(boardsIndexView.render().$el);
   },
 
   show: function (id) {
-    alert("I'm just getting warmed up!");
-  },
+    var that = this;
 
-  create: function () {
-    alert("I will create");
+    console.log(id);
+
+    console.log(that.boards);
+
+    board = that.boards.get(id);
+
+    var boardView = new T.Views.BoardView({
+      model: board
+    });
+
+    $("div.tamello").html(boardView.render().$el);
   }
+
 });

@@ -3,19 +3,10 @@ T.Views.BoardRowView = Backbone.View.extend({
 	className: "boardRow",
 
 	initialize: function() {
-		//var that = this;
-		// var favorites = new Gist.Collections.Favorites;
-		// favorites.fetch( {success: function() {
-		// 	console.log(favorites);
-		// }});
-
 		this.listenTo(this.model, 'change', this.render());
-		//this.listenTo(favorites, 'change', this.render());
 	},
 
 	events: {
-		// "click input.favorite": "favoriteGist",
-		// "click input.unfavorite": "unFavoriteGist"
 	},
 
 	render: function() {
@@ -42,11 +33,6 @@ T.Views.BoardsIndexView = Backbone.View.extend({
 
 		var renderedContent = JST["boards/boardsIndex"]();
 
-		// var b = new T.Models.Board();
-		// var form = new Backbone.Form({ model: b });
-		// form.render();
-		// console.log(form.el);
-
 		that.$el.html(renderedContent);
 
 		that.collection.each(function (board) {
@@ -68,4 +54,19 @@ T.Views.BoardsIndexView = Backbone.View.extend({
     board.save();
   }
 
-})
+});
+
+T.Views.BoardView = Backbone.View.extend({
+
+	render: function() {
+		var that = this;
+
+		var renderedContent = JST["boards/boardShow"]({
+			board: that.model
+		});
+
+		that.$el.html(renderedContent);
+    return that;
+	}
+
+});
