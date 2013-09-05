@@ -6,7 +6,8 @@ T.Routers.BoardsRouter = Backbone.Router.extend({
 
   routes: {
     "": "index",
-    "boards/:id": "show"
+    "boards/:id": "show",
+    "lists/:id/newcard": "createCard"
   },
 
   index: function () {
@@ -22,17 +23,20 @@ T.Routers.BoardsRouter = Backbone.Router.extend({
   show: function (id) {
     var that = this;
 
-    console.log(id);
-
-    console.log(that.boards);
-
     board = that.boards.get(id);
 
     var boardView = new T.Views.BoardView({
       model: board
     });
 
-    $("div.tamello").html(boardView.render().$el);
+    $("div.tamello").html(boardView.render(id).$el);
   }
+
+  // createCard: function (id) {
+  //   alert(id);
+  //   var that = this;
+
+
+  // }
 
 });

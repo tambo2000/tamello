@@ -58,7 +58,7 @@ T.Views.BoardsIndexView = Backbone.View.extend({
 
 T.Views.BoardView = Backbone.View.extend({
 
-	render: function() {
+	render: function(id) {
 		var that = this;
 
 		var renderedContent = JST["boards/boardShow"]({
@@ -66,6 +66,22 @@ T.Views.BoardView = Backbone.View.extend({
 		});
 
 		that.$el.html(renderedContent);
+
+		var lists = new T.Collections.Lists();
+		lists.board_id = id;
+	
+		lists.fetch( { 
+			success: function(resp) {
+				var listsView = new T.Views.Lists({
+					collection: lists
+				});
+
+				that.$("div.list_container").append(listsView.render().$el);
+			},
+			error: function(resp) {
+				console.log(resp);
+		}});
+
     return that;
 	}
 

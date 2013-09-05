@@ -23,7 +23,15 @@ class BoardsController < ApplicationController
 		@board = Board.new(params[:board])
 		@board.user_id = current_user.id
 		if @board.save
-			redirect_to boards_url
+			# create default lists
+			@list1 = List.new(title: "My First List", board_id: @board.id)
+      @list1.save
+      @list2 = List.new(title: "My Second List", board_id: @board.id)
+      @list2.save
+      @list3 = List.new(title: "My Third List", board_id: @board.id)
+      @list3.save
+
+			render :json => @board
 		else
 			render :json => @board.errors.full_messages
 		end

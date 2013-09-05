@@ -1,0 +1,39 @@
+<%= list.escape("title") %><br>
+
+<div class="cards<%=list.id%>"></div>
+
+<!-- Button trigger modal -->
+  <a data-toggle="modal" href="#myModal<%=list.id%>" class="btn">Add a Card...</a>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal<%=list.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	
+    <div class="modal-dialog">
+      <form id="new_card_form">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Add a New Card</h4>
+        </div>
+
+        <div class="modal-body">
+        		<input type="hidden" value="<%=list.id%>" name="card[list_id]">
+
+				  	<label for="card_title">Title</label>
+				  	<input id="card_title" type="text" class="form-control" name="card[title]"><br>
+           
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" value="Create Card" class="btn btn-sm btn-primary create_card">
+
+        </div>
+
+      </div><!-- /.modal-content -->
+      </form>
+    </div><!-- /.modal-dialog -->
+  
+  </div><!-- /.modal -->

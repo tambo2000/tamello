@@ -3,6 +3,8 @@ class Board < ActiveRecord::Base
 
   belongs_to :user
 
+  has_many :lists
+
   def initialize(options = {})
   	options.reverse_merge!(
   		:title => "New Board",
