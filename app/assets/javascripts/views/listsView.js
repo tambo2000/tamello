@@ -34,11 +34,35 @@ T.Views.List = Backbone.View.extend({
   				})
   				that.$("div.cards" + that.model.id).append(cardView.render().$el);
   			})
-  			that.$("div.cards" + that.model.id).append($("<div style='height:10px; bottom:0;'><div>"));
-
+  			
         that.$("div.cards" + that.model.id).sortable({
           connectWith: ".connectedListSortable",
-          revert: 200
+          opacity: 0.8,
+          revert: 200,
+          remove: function(event, ui) {
+            var removedCard = new T.Models.Card();
+            removedCard.set({id: parseInt(ui.item[0].attributes.id.nodeValue)});
+            cards.remove(removedCard);
+          },
+          receive: function(event, ui) {
+            var addedCard = new T.Models.Card();
+            addedCard.set({id: parseInt(ui.item[0].attributes.id.nodeValue)});
+            cards.add(addedCard);
+          },
+          update: function(event, ui) {
+            // return array of card ids in correct order
+            var sortedIDsArr = that.$("div.cards" + that.model.id).sortable( "toArray" );
+            sortedIDsArr = _.map(sortedIDsArr, function(ID) {
+              return parseInt(ID);
+            });
+            
+            // update position attribute of each card and save to server
+            cards.each( function(card) {
+              card.set("list_id", that.model.id);
+              card.set("position", _.indexOf(sortedIDsArr, card.id) );
+              card.save();
+            });
+          }
         });
   		},
   		error: function(resp) {

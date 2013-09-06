@@ -1,3 +1,9 @@
 T.Models.Card = Backbone.Model.extend({
-	url: "/cards"
+	urlRoot: "/cards"//,
+	
+	//url: "/cards"
+
+	// url: function() {
+	// 	return "/cards/" + this.id;
+	// }
 });

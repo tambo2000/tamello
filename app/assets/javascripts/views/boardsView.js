@@ -111,10 +111,6 @@ T.Views.BoardView = Backbone.View.extend({
 					opacity: 0.8,
 					tolerance: "pointer",
 					revert: 100,
-					start: function(event, ui) {
-						ui.item.lists = lists;
-		        ui.item.startPos = ui.item.index();
-			    },
 					update: function(event, ui) {
 						
 			    	var sortedIDsArr = $( ".listTable" ).sortable( "toArray" );
@@ -126,7 +122,7 @@ T.Views.BoardView = Backbone.View.extend({
 			    		list.set("position", _.indexOf(sortedIDsArr, list.id) );
 			    		list.save();
 			    	});
-			    	//lists.sync();
+			  
 			    }
 				});
 			},

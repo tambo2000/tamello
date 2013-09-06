@@ -6,9 +6,9 @@ T.Views.Card = Backbone.View.extend({
 		return "" + this.model.id;
 	},
 
-    initialize: function() {
-        this.listenTo(this.model, 'change', this.render());
-    },
+  initialize: function() {
+      // this.listenTo(this.model, 'change', this.render());
+  },
 
 	events: {
 	},

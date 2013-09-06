@@ -10,13 +10,22 @@
 
 <% if !current_user.nil? %>
   <div class="container">
-    <div class="header">
+
+    <div class="header cf">
+      <div style="float: left; vertical-align: middle; font-size: 15pt;">
       <form action="<%= session_url %>" method="POST">
       	Hello <%= current_user.username %>!
   		  <input type="hidden" name="_method" value="DELETE">
   		  <input type="submit" class="btn btn-danger" value="Logout">
   		</form>
+    </div>
+
+    <div style="float: right; font-size: 20pt;">
+      Tamello!
+    </div>
+
 		</div>
+
   </div>
   
   <div class="tamello">
