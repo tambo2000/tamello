@@ -51,12 +51,34 @@ T.Views.BoardsIndexView = Backbone.View.extend({
     var formData = $(event.currentTarget).serializeJSON();
     
     var board = new T.Models.Board(formData.board);
+    that.collection.add(board);
     board.save();
   }
 
 });
 
 T.Views.BoardView = Backbone.View.extend({
+
+	initialize: function() {
+		//this.listenTo(this.model, 'change', this.render());
+		//$( ".listTable" ).on( "sortupdate", function( event, ui ) {
+
+		//} );
+	},
+
+	events: {
+		"submit form#new_list_form": "createList"
+	},
+
+	createList: function (event) {
+    var that = this;
+
+    var formData = $(event.currentTarget).serializeJSON();
+    
+    var list = new T.Models.List(formData.list);
+    //that.collection.add(list);
+    list.save();
+  },
 
 	render: function(id) {
 		var that = this;
@@ -72,12 +94,43 @@ T.Views.BoardView = Backbone.View.extend({
 	
 		lists.fetch( { 
 			success: function(resp) {
-				var listsView = new T.Views.Lists({
-					collection: lists
-				});
 
-				that.$("div.list_container").append(listsView.render().$el);
+				lists.each(function (list) {
+					var listView = new T.Views.List({
+		      	model: list
+		    	});
+					that.$("div.list_container").append(listView.render().$el);
+		    });
+
+				// need to add a table to allow the div to expand horizontally only
+				that.$("div.list_container").wrapInner("<table><tr>");
+
+				that.$("tr").addClass("listTable");
+
+				that.$(".listTable").sortable({
+					opacity: 0.8,
+					tolerance: "pointer",
+					revert: 100,
+					start: function(event, ui) {
+						ui.item.lists = lists;
+		        ui.item.startPos = ui.item.index();
+			    },
+					update: function(event, ui) {
+						
+			    	var sortedIDsArr = $( ".listTable" ).sortable( "toArray" );
+			    	sortedIDsArr = _.map(sortedIDsArr, function(ID) {
+			    		return parseInt(ID);
+			    	});
+			    	
+			    	lists.each( function(list) {
+			    		list.set("position", _.indexOf(sortedIDsArr, list.id) );
+			    		list.save();
+			    	});
+			    	//lists.sync();
+			    }
+				});
 			},
+
 			error: function(resp) {
 				console.log(resp);
 		}});

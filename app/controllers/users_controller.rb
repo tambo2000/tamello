@@ -9,6 +9,8 @@ class UsersController < ApplicationController
       self.current_user = @user
       @board = Board.new(title: "My First Board", user_id: @user.id)
       @board.save
+
+      List.create_defaults(@board.id)
       
       redirect_to boards_url
     else

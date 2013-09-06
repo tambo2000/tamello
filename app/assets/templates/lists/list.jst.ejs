@@ -1,9 +1,11 @@
-<%= list.escape("title") %><br>
+<div class="list">
+  <%= list.escape("title") %><br>
 
-<div class="cards<%=list.id%>"></div>
+  <div class="connectedListSortable cards<%=list.id%>"></div>
 
-<!-- Button trigger modal -->
+  <!-- Button trigger modal -->
   <a data-toggle="modal" href="#myModal<%=list.id%>" class="btn">Add a Card...</a>
+</div>
 
   <!-- Modal -->
   <div class="modal fade" id="myModal<%=list.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -18,6 +20,7 @@
         </div>
 
         <div class="modal-body">
+            <input type="hidden" value="<%=Math.random()%>" name="unique_id">
         		<input type="hidden" value="<%=list.id%>" name="card[list_id]">
 
 				  	<label for="card_title">Title</label>

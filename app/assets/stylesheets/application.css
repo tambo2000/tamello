@@ -10,5 +10,19 @@
  *
  *= require_self
  *= require bootstrap
+ *= require jquery.ui.all
  *= require_tree .
  */
+
+ .header {
+ 	border-style: solid;
+ 	border-color: gray;
+ 	border-radius: 5px;
+ 	border-width: 1px;
+ 	padding: 10px;
+ 	margin-top: 5px;
+ }
+
+ .tamello {
+ 	margin-top: 5px;
+ }

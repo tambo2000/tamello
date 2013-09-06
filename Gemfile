@@ -9,6 +9,7 @@ gem 'bcrypt-ruby'
 gem 'pg'
 gem 'ejs'
 gem 'backbone-on-rails'
+gem 'jquery-ui-rails'
 
 group :development do
 	gem 'debugger'

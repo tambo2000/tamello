@@ -16,4 +16,5 @@ class Board < ActiveRecord::Base
 
   	super(options)
   end
+
 end
