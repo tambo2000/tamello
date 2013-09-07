@@ -2,29 +2,4 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.list {
-	background-color: #d4dbe2;
-	border-style: solid;
-	border-color: gray;
-	border-width: 1px;
-	border-radius: 5px;
-	float: left;
-	padding: 5px;
-	margin-top: 15px;
-	margin-bottom: 20px;
-	margin-right: 13px;
-	margin-left: 0px;
-	//min-height: 100px;
-}
-
-td { 
-  display: table-cell;
-  vertical-align: top; 
-  min-width: 120px; 
-}
-
-.list_container	{
-	overflow-x:auto;
-	overflow-y:hidden;
-}
 

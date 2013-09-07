@@ -7,12 +7,22 @@ T.Views.List = Backbone.View.extend({
 	},
 
 	initialize: function() {
+    //var that = this;
 		//this.listenTo(this.model, 'change', this.render());
+    // that.listenTo($(window), 'resize', that.doResize());
 	},
 
 	events: {
 		"submit form#new_card_form": "createCard"
 	},
+
+  // doResize: function() {
+  //   var that = this;
+
+  //   debugger
+
+  //   that.$(".connectedListSortable").css("max-height", ($(window).height()-220) + "px");
+  // },
 
 	render: function() {
 		var that = this;
@@ -22,6 +32,8 @@ T.Views.List = Backbone.View.extend({
 		});
 
     that.$el.html(renderedContent);
+
+    //that.$(".connectedListSortable").css("max-height", ($(window).height()-220) + "px");
 
     var cards = new T.Collections.Cards;
   	cards.list_id = that.model.id
@@ -36,6 +48,7 @@ T.Views.List = Backbone.View.extend({
   			})
   			
         that.$("div.cards" + that.model.id).sortable({
+          placeholder: "card card_placeholder",
           connectWith: ".connectedListSortable",
           opacity: 0.8,
           revert: 200,

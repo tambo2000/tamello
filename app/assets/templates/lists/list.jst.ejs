@@ -1,4 +1,4 @@
-<div class="list">
+<div class="list cf">
   <%= list.escape("title") %><br>
 
   <div class="connectedListSortable cards<%=list.id%>"></div>
@@ -6,6 +6,15 @@
   <!-- Button trigger modal -->
   <a data-toggle="modal" href="#myModal<%=list.id%>" class="btn">Add a Card...</a>
 </div>
+
+<script>
+  $(".connectedListSortable").css("max-height", ($(window).height()-220) + "px");
+
+  $(window).on('resize', function(){
+    console.log("resizing");
+    $(".connectedListSortable").css("max-height", ($(window).height()-220) + "px");
+  });
+</script>
 
   <!-- Modal -->
   <div class="modal fade" id="myModal<%=list.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -108,8 +108,9 @@ T.Views.BoardView = Backbone.View.extend({
 				that.$("tr").addClass("listTable");
 
 				that.$(".listTable").sortable({
+					forcePlaceholderSize: true,
 					opacity: 0.8,
-					tolerance: "pointer",
+					tolerance: "intersect",
 					revert: 100,
 					update: function(event, ui) {
 						
