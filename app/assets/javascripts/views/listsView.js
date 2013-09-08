@@ -7,8 +7,9 @@ T.Views.List = Backbone.View.extend({
 	},
 
 	initialize: function() {
-    //var that = this;
+    var that = this;
 		//this.listenTo(this.model, 'change', this.render());
+    //that.listenTo(that.collection, 'change', that.render());
     // that.listenTo($(window), 'resize', that.doResize());
 	},
 
@@ -79,17 +80,18 @@ T.Views.List = Backbone.View.extend({
 
     var that = this;
 
+    $('#myModal' + that.model.id).modal('hide');
+    $('.modal-backdrop').remove();
+
     var formData = $(event.currentTarget).serializeJSON();
     
     var card = new T.Models.Card(formData.card);
 
-    // cards.add(card);
-
-    $('#myModal' + that.model.id).modal('toggle');
+    that.collection.add(card);
     
     card.save();
 
-    //Backbone.history.navigate("#boards/" + that.model.get("board_id"));
+    that.render();
   }
 });
 
