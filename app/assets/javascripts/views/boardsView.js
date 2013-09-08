@@ -96,16 +96,22 @@ T.Views.BoardView = Backbone.View.extend({
 			success: function(resp) {
 
 				lists.each(function (list) {
+					var cards = new T.Collections.Cards;
 					var listView = new T.Views.List({
-		      	model: list
+				      	model: list,
+				      	collection: cards
 		    	});
-					that.$("div.list_container").append(listView.render().$el);
+		    	// append empty lists in correct order
+		    	that.$("tr").append(listView.render().$el);
+
+  				cards.list_id = list.id
+  				cards.fetch({
+  					success: function(resp) {
+  						// append cards to list
+  						that.$("tr#" + list.id).append(listView.render().$el);
+			    	}
+					});
 		    });
-
-				// need to add a table to allow the div to expand horizontally only
-				that.$("div.list_container").wrapInner("<table><tr>");
-
-				that.$("tr").addClass("listTable");
 
 				that.$(".listTable").sortable({
 					forcePlaceholderSize: true,
