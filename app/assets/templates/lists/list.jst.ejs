@@ -9,20 +9,6 @@
   <a data-toggle="modal" href="#myModal<%=list.id%>" >Add a Card...</a>
 </div>
 
-<script>
-  var setCSS = function(){
-    $(".connectedListSortable").css("max-height", ($(window).height()-190) + "px");
-    $(".list").css("min-width", (Math.floor(($(window).width() / 5))) + "px");
-    $(".list").css("max-width", (Math.floor(($(window).width() / 3))) + "px");
-    $("td").css("width", (Math.floor(($(window).width() / 5))) + "px");
-  }
-
-  setCSS();
-
-  $(window).on('resize', function(){
-    setCSS();  
-  });
-</script>
 
   <!-- Modal -->
   <div class="modal fade" id="myModal<%=list.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

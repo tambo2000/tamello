@@ -8,6 +8,7 @@ T.Views.List = Backbone.View.extend({
 
 	initialize: function() {
     var that = this;
+
 		//this.listenTo(this.model, 'change', this.render());
     //that.listenTo(that.collection, 'change', that.render());
     // that.listenTo($(window), 'resize', that.doResize());
@@ -27,6 +28,7 @@ T.Views.List = Backbone.View.extend({
 
 	render: function() {
 		var that = this;
+
 
 		var renderedContent = JST["lists/list"]({
 			list: that.model
@@ -72,6 +74,8 @@ T.Views.List = Backbone.View.extend({
       }
     });
 
+    setCSS();
+
     return that;
 	},
 
@@ -94,5 +98,7 @@ T.Views.List = Backbone.View.extend({
     that.render();
   }
 });
+
+
 
 

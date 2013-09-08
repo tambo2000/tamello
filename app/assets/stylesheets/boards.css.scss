@@ -61,14 +61,39 @@ body {
 	top: 53px;
 	left: 5px;
 	right: 5px;
+	bottom: 0px;
 
 	background-color: $main_color;
 	border-style: solid;
 	padding: 3px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	border-width: 3px;
-	border-color: #d4dbe2;
+	/*border-top-left-radius: 5px;
+	border-top-right-radius: 5px;*/
+	border-radius: 5px;
+	border-width: 4px;
+	border-color: $main_color;
+
+	margin-bottom: 5px;
+}
+
+.list_container	{
+	background-color: white;
+
+	border-style: solid;
+	border-width: 4px;
+	border-color: $main_color;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-bottom: 10px;
+	
+	position: absolute;
+	top: 99px;
+	left: 5px;
+	right: 5px;
+	bottom: 0px;
+	/*overflow: auto;*/
+
+  overflow-y: hidden;
+	overflow-x: scroll;
 }
 
 .mainContent {
@@ -136,24 +161,6 @@ td {
   width: 200px; 
 }
 
-.list_container	{
-	border-style: solid;
-	border-color: $main_color;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-	margin-bottom: 10px;
-	
-	position: absolute;
-	top: 98px;
-	left: 5px;
-	right: 5px;
-	bottom: 0px;
-	/*overflow: auto;*/
-
-  overflow-y: hidden;
-	overflow-x: scroll;
-}
-
 .tamello {
 	color: $text_color;
 	
@@ -169,6 +176,10 @@ td {
 	}
 }
 
+.boardList a {
+	color: $main_color;
+}
+
 .btn-primary {
 	background-color: $primary_button_color;
 	border-color: $primary_button_color;
@@ -177,4 +188,10 @@ td {
 .btn-danger {
 	background-color: $logout_button_color;
 	border-color: $logout_button_color;
+}
+
+.btn-default {
+	background-color: white;
+	color: $main_color;
+	border-color: white;
 }

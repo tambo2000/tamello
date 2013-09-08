@@ -1,9 +1,13 @@
-<div class="container">
-	<h3>My Boards
+<div class="topBar" style="font-size: 15pt;">
+	My Boards
 
-		<!-- Button trigger modal -->
-  	<a data-toggle="modal" href="#myModal" class="btn btn-success">Create New Board</a>
-  </h3>
+	<!-- Button trigger modal -->
+	<a data-toggle="modal" href="#myModal" class="btn btn-primary" style="float:right;">Create New Board</a>
+
+  <div class="boardList">
+  </div>
+</div>
+
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -37,11 +41,8 @@
   
   </div><!-- /.modal -->
 
-  <div class="boardList"></div>
   <script>$(".boardList").sortable();</script>
  
-
-</div>
 
 <script type="text/javascript">
 
