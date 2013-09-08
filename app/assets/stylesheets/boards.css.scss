@@ -2,23 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-html {
- 	height: 100%;
- 	overflow: hidden;
- }
-
- .header {
- 	border-style: solid;
- 	border-color: gray;
- 	border-radius: 5px;
- 	border-width: 1px;
- 	padding: 5px;
- 	margin: 5px;
- }
-
- .tamello {
- 	margin-top: 5px;
- }
+$main_color: #d4dbe2;
+$header_color: #AAAFB5;
+$text_color: white;
+$primary_button_color: #AAAFB5;
+$logout_button_color: #E69980;
+$card_color: white;
+$card_placeholder_color: #EAEDF0;
 
 .cf:before,
 .cf:after {
@@ -38,16 +28,41 @@ html {
     *zoom: 1;
 }
 
+html {
+ 	height: 100%;
+ 	overflow: hidden;
+ }
+
 body {
 	height: 100%;
 }
 
-.boardRow {
-	padding: 3px;
+.tamello {
+	margin-top: 5px;
+}
+
+.header {
+	position: absolute;
+	left: 5px;
+	right: 5px;
+
+	color: $text_color;
+	background-color: $header_color;
+ 	border-style: solid;
+ 	border-color: $header_color;
+ 	border-radius: 5px;
+ 	border-width: 1px;
+ 	padding: 5px;
+ 	/*margin: 5px;*/
 }
 
 .topBar {
-	background-color: #d4dbe2;
+	position: absolute;
+	top: 53px;
+	left: 5px;
+	right: 5px;
+
+	background-color: $main_color;
 	border-style: solid;
 	padding: 3px;
 	border-top-left-radius: 5px;
@@ -62,37 +77,31 @@ body {
 	max-height: fill-available;
 }
 
+.boardRow {
+	padding: 3px;
+}
+
 .card {
 	color: gray;
-	background-color: white;
-	//color: white;
+	background-color: $card_color;
 	min-height: 30px;
-	width: 95%;
+	width: 100%;
 	border-style: solid;
-	border-color: #d4dbe2;
+	border-color: $main_color;
 	border-width: 2px;
 	margin: auto;
-	margin-top: 10px;
+	margin-top: 5px;
 	border-radius: 5px;
-	//float: left;
 	padding: 5px;
 }
 
 .card_placeholder {
-	background-color: black;
+	background-color: $card_placeholder_color;
 }
 
 .connectedListSortable {
 	min-height: 50px;
 	min-width: 100px;
-
-	/*max-height: 200px;*/
-
-	/*position: absolute;*/
-	/*top: 5px;
-	left: 5px;
-	right: 5px;
-	bottom: 0px;*/
 
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -101,7 +110,7 @@ body {
 
 .list {
 	color: white;
-	background-color: #d4dbe2;
+	background-color: $main_color;
 	border-style: solid;
 	border-color: white;
 	border-width: 1px;
@@ -112,29 +121,24 @@ body {
 	margin-bottom: 20px;
 	margin-right: 13px;
 	margin-left: 5px;
-	/*max-height: 100%;*/
-	min-width: 110px;
+	/*min-width: 300px;*/
 
 	position: relative;
-	/*top: 5px;*/
-	/*left: 5px;
-	right: 5px;
-	bottom: 0px;*/
+}
 
-	/*overflow-x:auto;
-	overflow-y:auto;*/
+.list_placeholder {
+	background-color: white;
 }
 
 td { 
-  //display: table-cell;
+  /*display: table-cell;*/
   vertical-align: top;
-  //width: 25%; 
-  min-width: 120px; 
+  width: 200px; 
 }
 
 .list_container	{
 	border-style: solid;
-	border-color: #d4dbe2;
+	border-color: $main_color;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	margin-bottom: 10px;
@@ -148,4 +152,29 @@ td {
 
   overflow-y: hidden;
 	overflow-x: scroll;
+}
+
+.tamello {
+	color: $text_color;
+	
+	a {
+		color: $text_color;
+		font-size: 12pt;
+	}
+
+	.list {
+		a {
+			font-size: 10pt;
+		}
+	}
+}
+
+.btn-primary {
+	background-color: $primary_button_color;
+	border-color: $primary_button_color;
+}
+
+.btn-danger {
+	background-color: $logout_button_color;
+	border-color: $logout_button_color;
 }

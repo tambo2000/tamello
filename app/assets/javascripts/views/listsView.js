@@ -50,7 +50,7 @@ T.Views.List = Backbone.View.extend({
         that.$("div.cards" + that.model.id).sortable({
           placeholder: "card card_placeholder",
           connectWith: ".connectedListSortable",
-          opacity: 0.8,
+          opacity: 0.6,
           revert: 200,
           remove: function(event, ui) {
             var removedCard = new T.Models.Card();
