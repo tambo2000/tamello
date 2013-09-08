@@ -14,38 +14,3 @@
     <button type="button" class="btn btn-sm btn-primary exit_card_input" id="<%=list.id%>" style="margin: 3px; float:right; font-size: 9pt; font-weight: bold;">X</button>
   </form>
 </div>
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal<%=list.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  	
-    <div class="modal-dialog">
-      <form id="new_card_form">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Add a New Card</h4>
-        </div>
-
-        <div class="modal-body">
-            <input type="hidden" value="<%=Math.random()%>" name="unique_id">
-        		<input type="hidden" value="<%=list.id%>" name="card[list_id]">
-
-				  	<label for="card_title">Title</label>
-				  	<input id="card_title" type="text" class="form-control" name="card[title]"><br>
-           
-        </div>
-
-        <div class="modal-footer">
-
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <input type="submit" value="Create Card" class="btn btn-sm btn-primary create_card">
-
-        </div>
-
-      </div><!-- /.modal-content -->
-      </form>
-    </div><!-- /.modal-dialog -->
-  
-  </div><!-- /.modal -->

@@ -2,6 +2,8 @@ T.Views.List = Backbone.View.extend({
 
 	tagName: "td",
 
+  className: "listCell",
+
 	id: function() {
 		return "" + this.model.id;
 	},
@@ -38,10 +40,15 @@ T.Views.List = Backbone.View.extend({
 		});
 		
     that.$("div.cards" + that.model.id).sortable({
+      forcePlaceholderSize: true,
       placeholder: "card card_placeholder",
       connectWith: ".connectedListSortable",
       opacity: 0.6,
       revert: 200,
+      start: function(event, ui) {
+        ui.placeholder.css("width", ui.item.width() + 5 + "px");
+        ui.placeholder.css("height", ui.item.height() + 14 + "px");
+      },
       remove: function(event, ui) {
         var removedCard = new T.Models.Card();
         removedCard.set({id: parseInt(ui.item[0].attributes.id.nodeValue)});

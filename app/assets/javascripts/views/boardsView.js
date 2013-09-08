@@ -119,6 +119,10 @@ T.Views.BoardView = Backbone.View.extend({
 					opacity: 0.8,
 					tolerance: "intersect",
 					revert: 100,
+					start: function(event, ui) {
+						// ui.placeholder.css("width", (Math.floor(($(window).width() / 5))) + "px");
+		        ui.placeholder.css("width", ui.item.width() - 16 + "px");
+					},
 					update: function(event, ui) {
 						
 			    	var sortedIDsArr = $( ".listTable" ).sortable( "toArray" );
