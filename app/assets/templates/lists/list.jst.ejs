@@ -5,8 +5,14 @@
     
   </div>
 
-  <!-- Button trigger modal -->
-  <a data-toggle="modal" href="#myModal<%=list.id%>" >Add a Card...</a>
+  <!-- Button trigger show input -->
+  <a class="new_card_link" id="<%=list.id%>">Add a Card...</a>
+  <form class="new_card_form hide" id="<%=list.id%>">
+    <input type="hidden" value="<%=list.id%>" name="card[list_id]">
+    <input type="text" class="form-control" name="card[title]">
+    <input type="submit" value="Create Card" class="btn btn-sm btn-primary create_card" style="margin: 3px; float:right;">
+    <button type="button" class="btn btn-sm btn-primary exit_card_input" id="<%=list.id%>" style="margin: 3px; float:right; font-size: 9pt; font-weight: bold;">X</button>
+  </form>
 </div>
 
 

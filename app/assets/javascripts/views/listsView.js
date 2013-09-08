@@ -15,16 +15,10 @@ T.Views.List = Backbone.View.extend({
 	},
 
 	events: {
-		"submit form#new_card_form": "createCard"
+    "click a.new_card_link": "toggleNewCardInput",
+    "submit form.new_card_form": "createCard",
+    "click button.exit_card_input": "toggleNewCardInput"
 	},
-
-  // doResize: function() {
-  //   var that = this;
-
-  //   debugger
-
-  //   that.$(".connectedListSortable").css("max-height", ($(window).height()-220) + "px");
-  // },
 
 	render: function() {
 		var that = this;
@@ -79,13 +73,23 @@ T.Views.List = Backbone.View.extend({
     return that;
 	},
 
+  toggleNewCardInput: function (event) {
+    event.preventDefault();
+
+    $("#" + event.target.id + ".new_card_form").toggleClass("hide");
+    $("#" + event.target.id + ".new_card_link").toggleClass("hide");
+    $("input.form-control").focus();
+  },
+
 	createCard: function (event) {
     event.preventDefault();
 
     var that = this;
 
-    $('#myModal' + that.model.id).modal('hide');
-    $('.modal-backdrop').remove();
+    that.toggleNewCardInput(event);
+
+    // $('#myModal' + that.model.id).modal('hide');
+    // $('.modal-backdrop').remove();
 
     var formData = $(event.currentTarget).serializeJSON();
     
