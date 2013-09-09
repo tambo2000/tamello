@@ -12,25 +12,44 @@ T.Views.List = Backbone.View.extend({
     var that = this;
 
 		//this.listenTo(this.model, 'change', this.render());
-    //that.listenTo(that.collection, 'change', that.render());
+    // that.listenTo(that.collection, 'change', that.render());
     // that.listenTo($(window), 'resize', that.doResize());
 	},
 
 	events: {
     "click a.new_card_link": "toggleNewCardInput",
     "submit form.new_card_form": "createCard",
-    "click button.exit_card_input": "toggleNewCardInput"
+    "click button.exit_card_input": "toggleNewCardInput",
+
+    "click button.delete-card": "deleteCard"
 	},
+
+  deleteCard: function(event) {
+    event.preventDefault();
+
+    var that = this;
+
+    var card = that.collection.get(event.currentTarget.id);
+
+    card.destroy();
+
+    this.render();
+
+    $('.modal-backdrop').remove();
+  },
 
 	render: function() {
 		var that = this;
 
-
 		var renderedContent = JST["lists/list"]({
-			list: that.model
+			list: that.model,
+      listMinWidth: listMinWidth(),
+      listMaxWidth: listMaxWidth(),
+      listMaxHeight: listMaxHeight()
 		});
 
     that.$el.html(renderedContent);
+    //setCSS();
 
 		that.collection.each(function(card) {
 			var cardView = new T.Views.Card({
@@ -46,8 +65,8 @@ T.Views.List = Backbone.View.extend({
       opacity: 0.6,
       revert: 200,
       start: function(event, ui) {
-        ui.placeholder.css("width", ui.item.width() + 5 + "px");
-        ui.placeholder.css("height", ui.item.height() + 14 + "px");
+        ui.placeholder.css("width", ui.item.width() + 3 + "px");
+        ui.placeholder.css("height", ui.item.height() + 4 + "px");
       },
       remove: function(event, ui) {
         var removedCard = new T.Models.Card();
@@ -75,7 +94,7 @@ T.Views.List = Backbone.View.extend({
       }
     });
 
-    setCSS();
+    // setCSS();
 
     return that;
 	},
@@ -93,20 +112,25 @@ T.Views.List = Backbone.View.extend({
 
     var that = this;
 
-    that.toggleNewCardInput(event);
-
-    // $('#myModal' + that.model.id).modal('hide');
-    // $('.modal-backdrop').remove();
-
     var formData = $(event.currentTarget).serializeJSON();
     
     var card = new T.Models.Card(formData.card);
 
-    that.collection.add(card);
-    
-    card.save();
+    // don't allow blank cards
+    if (card.get("title") !== "") {
+      that.collection.add(card);
+      card.save();
 
-    that.render();
+      var cardView = new T.Views.Card({
+        model: card
+      })
+      that.$(".connectedListSortable").append(cardView.render().$el);
+
+      // clear input field
+      event.currentTarget.children[1].value = "";
+    } else {
+      $("input.form-control").focus();
+    }
   }
 });
 

@@ -5,6 +5,7 @@
 $main_color: #d4dbe2;
 $header_color: #AAAFB5;
 $text_color: white;
+$card_text_color: gray;
 $primary_button_color: #AAAFB5;
 $logout_button_color: #d4dbe2;
 $card_color: white;
@@ -90,10 +91,9 @@ body {
 	left: 5px;
 	right: 5px;
 	bottom: 0px;
-	/*overflow: auto;*/
 
   overflow-y: hidden;
-	overflow-x: scroll;
+	overflow-x: auto;
 }
 
 .mainContent {
@@ -109,7 +109,7 @@ body {
 .card {
 	color: gray;
 	background-color: $card_color;
-	min-height: 30px;
+	/*min-height: 30px;*/
 	width: 100%;
 	border-style: solid;
 	border-color: $main_color;
@@ -117,20 +117,41 @@ body {
 	margin: auto;
 	margin-top: 5px;
 	border-radius: 5px;
-	padding: 5px;
+	/*padding: 5px;*/
 }
 
 .card_placeholder {
 	background-color: $card_placeholder_color;
 }
 
+/*div.new_card_form {
+	background-color: $main_color;
+	position: absolute;
+	padding: 5px; 
+	width: 100%;
+	bottom: 0px;
+	right: 0px;
+}*/
+
+a.show-card-button {
+	background-color: gray; 
+	color: gray;
+	width: 100%;
+	min-height: 30px;
+	border-style: solid;
+}
+
 .connectedListSortable {
 	min-height: 50px;
 	min-width: 100px;
 
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
+}
 
+.listTitle {
+	padding: 3px;
+	padding-left: 3%;
 }
 
 .list {
@@ -147,8 +168,18 @@ body {
 	margin-right: 13px;
 	margin-left: 5px;
 	/*min-width: 300px;*/
+	/*max-height: 200px;*/
+	/*overflow: hidden;*/
 
 	position: relative;
+}
+
+.list:hover {
+	cursor: pointer;
+}
+
+.list:active {
+	cursor: move;
 }
 
 .list_placeholder {
@@ -202,4 +233,30 @@ td {
 
 .hide {
 	display: none;
+}
+
+.card>.btn, .card>.btn:active {
+	/*border-style: solid;
+	border-color: black;*/
+	background-color: $card_color;
+	color: $card_text_color;
+	width: 100%;
+	white-space: normal;
+	-webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
+          box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
+}
+
+.card>.btn:active {
+	cursor: move;
+}
+
+/*always show scrollbar*/
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.1);
+    /*-webkit-box-shadow: 0 0 20px rgba(255,255,255,1);*/
 }

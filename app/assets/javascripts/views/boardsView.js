@@ -35,11 +35,15 @@ T.Views.BoardsIndexView = Backbone.View.extend({
 
 		that.$el.html(renderedContent);
 
+		// var timeout = 0;
 		that.collection.each(function (board) {
 			var boardRowView = new T.Views.BoardRowView({
       	model: board
     	});
-			that.$("div.boardList").append(boardRowView.render().$el);
+    	// timeout += 100;
+    	// setTimeout(function() {
+				that.$("div.boardList").append(boardRowView.render().$el);
+			// }, timeout);
     });
 
 		return that
@@ -67,17 +71,43 @@ T.Views.BoardView = Backbone.View.extend({
 	},
 
 	events: {
-		"submit form#new_list_form": "createList"
+		"submit form#new_list_form": "createList",
+		"click a.new-list-link": "focusOnForm"
+	},
+
+	focusOnForm: function(event) {
+		console.log("clicked");
+		$('#newList').on('shown.bs.modal', function () {
+  		$(".form-control").focus();
+		})
+		
+		console.log($("input#list_title.form-control"));
 	},
 
 	createList: function (event) {
+		event.preventDefault();
+
     var that = this;
 
     var formData = $(event.currentTarget).serializeJSON();
     
-    var list = new T.Models.List(formData.list);
-    //that.collection.add(list);
-    list.save();
+    var list = new T.Models.List();
+ 
+    list.save(formData.list, {
+    	success: function(resp) {
+    		var cards = new T.Collections.Cards;
+				var listView = new T.Views.List({
+	      	model: list,
+	      	collection: cards
+  			});
+  	
+  			that.$("tr").append(listView.render().$el);
+  			setCSS();
+    	}
+    });
+
+  	$('#newList').modal('hide');
+    $('.modal-backdrop').remove();
   },
 
 	render: function(id) {

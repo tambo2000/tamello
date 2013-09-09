@@ -32,4 +32,11 @@ class CardsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@card = Card.find(params[:id])
+		@card.destroy()
+
+		render :json => @card
+	end
+
 end

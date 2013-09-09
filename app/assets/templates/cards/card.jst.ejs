@@ -1,1 +1,37 @@
-<%= card.escape("title") %>
+
+  <a data-toggle="modal" href="#cardShow<%= card.id %>" class="btn show-card-link" style="height: auto; overflow:auto;"> <%= card.escape("title") %>
+	</a>
+
+
+
+
+<!-- Modal -->
+  <div class="modal fade" id="cardShow<%= card.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	
+    <div class="modal-dialog">
+      <form id="card_update_form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4><%= card.escape("title") %></h4>
+        </div>
+        <div class="modal-body">
+
+				  	<label for="list_title"><%= card.get("description") %></label>
+				  	<input id="list_title" type="text" class="form-control hide" name="list[title]"><br>
+
+				  	<input id="list_board_id" type="hidden" name="list[board_id]" value="<%= board.id %>">
+           
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-danger delete-card" id="<%= card.id %>" data-dismiss="modal">Delete this Card</button>
+
+        </div>
+      </div><!-- /.modal-content -->
+      </form>
+    </div><!-- /.modal-dialog -->
+  
+  </div><!-- /.modal -->
+
