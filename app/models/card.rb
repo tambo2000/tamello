@@ -4,8 +4,7 @@ class Card < ActiveRecord::Base
   belongs_to :list
 
   def initialize(options = {})
-  	p "options #{options[:list_id]}"
-
+  	# set the position attribute to the last position for the collection
   	options[:position] = List.find(options[:list_id]).cards.count
 
   	super(options)

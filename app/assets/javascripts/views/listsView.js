@@ -20,21 +20,22 @@ T.Views.List = Backbone.View.extend({
     "click a.new_card_link": "toggleNewCardInput",
     "submit form.new_card_form": "createCard",
     "click button.exit_card_input": "toggleNewCardInput",
-
-    "click button.delete-card": "deleteCard"
+    "click button.delete-card": "deleteCard",
+    "click button.delete-list": "deleteList"
 	},
+
+  deleteList: function(event) {
+    this.model.destroy();
+    this.remove();
+    $('.modal-backdrop').remove();
+  },
 
   deleteCard: function(event) {
     event.preventDefault();
-
     var that = this;
-
     var card = that.collection.get(event.currentTarget.id);
-
     card.destroy();
-
     this.render();
-
     $('.modal-backdrop').remove();
   },
 
@@ -93,8 +94,6 @@ T.Views.List = Backbone.View.extend({
         });
       }
     });
-
-    // setCSS();
 
     return that;
 	},

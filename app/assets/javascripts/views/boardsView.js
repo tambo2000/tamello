@@ -72,7 +72,7 @@ T.Views.BoardView = Backbone.View.extend({
 
 	events: {
 		"submit form#new_list_form": "createList",
-		"click a.new-list-link": "focusOnForm"
+		"click a.new-list-link": "focusOnForm",
 	},
 
 	focusOnForm: function(event) {

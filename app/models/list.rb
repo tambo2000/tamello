@@ -3,7 +3,8 @@ class List < ActiveRecord::Base
 
   belongs_to :board
 
-  has_many :cards
+  has_many :cards,
+    :dependent => :destroy
 
   def initialize(options = {})
   	options[:position] = Board.find(options[:board_id]).lists.count

@@ -3,7 +3,9 @@ class Board < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :lists
+  has_many :lists,
+    :dependent => :destroy
+
 
   def initialize(options = {})
   	options.reverse_merge!(
