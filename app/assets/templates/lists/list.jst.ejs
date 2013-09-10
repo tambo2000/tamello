@@ -1,25 +1,27 @@
 <div class="list cf" style="min-width:<%= listMinWidth %>; max-width:<%= listMaxWidth %>">
 
-  <div class="listMenu">
-    <div class="dropdown">
-      <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
-        <span class="caret" style="color:white;"></span>
-      </a>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        <li>
-          <a data-toggle="modal" href="#deleteList<%= list.id %>" class="btn btn-danger dropdown-menu-button">Delete this List</a>
-        </li>
-      </ul>
-</div>
-  </div>
+  <div class="cf">
+    <div class="listMenu">
+      <div class="dropdown">
+        <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+          <span class="caret" style="color:white;"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <li>
+            <a data-toggle="modal" href="#deleteList<%= list.id %>" class="btn btn-danger dropdown-menu-button">Delete this List</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-  <p class="listTitle" id="<%=list.id%>"><%= list.escape("title") %></p>
-  <form class="edit_list_title_form hide" id="<%=list.id%>">
-    <input type="hidden" value="<%=list.id%>" name="list[id]">
-    <input type="text" class="form-control" name="list[title]" value="<%= list.get("title") %>" autocomplete="off" style="width:40%; float:left;">
-    <input type="submit" value="Save" class="btn btn-sm btn-primary edit_list_title" style="margin: 3px; float:left;">
-    <button type="button" class="btn btn-sm btn-primary exit_edit_list_input" id="<%=list.id%>" style="margin: 3px; float:left; font-size: 9pt; font-weight: bold;">X</button>
-  </form>
+    <p class="listTitle" id="<%=list.id%>"><%= list.escape("title") %></p>
+    <form class="edit_list_title_form hide" id="<%=list.id%>">
+      <input type="hidden" value="<%=list.id%>" name="list[id]">
+      <input type="text" class="form-control" name="list[title]" value="<%= list.get("title") %>" autocomplete="off" style="width:45%; float:left;">
+      <input type="submit" value="Save" class="btn btn-sm btn-primary edit_list_title" style="margin: 3px; float:left;">
+      <button type="button" class="btn btn-sm btn-primary exit_edit_list_input" id="<%=list.id%>" style="margin: 3px; float:left; font-size: 9pt; font-weight: bold;">X</button>
+    </form>
+  </div>
 
   <div class="connectedListSortable cards<%=list.id%>" style="max-height:<%= listMaxHeight %>;">
     

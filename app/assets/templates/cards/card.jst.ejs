@@ -1,5 +1,5 @@
 
-  <a data-toggle="modal" href="#cardShow<%= card.id %>" class="btn show-card-link" style="text-align:left;"> <%= card.escape("title") %>
+  <a data-toggle="modal" href="#cardShow<%= card.id %>" id="<%= card.id %>" class="btn show-card-link" style="text-align:left;"> <%= card.escape("title") %>
 	</a>
 
 
@@ -9,12 +9,17 @@
   <div class="modal fade" id="cardShow<%= card.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   	
     <div class="modal-dialog">
-      <form id="card_update_form">
       <div class="modal-content">
       
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4><%= card.escape("title") %></h4>
+        <div class="modal-header cf">
+          <button type="button" class="close" id="<%= card.id %>" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="cardTitle" id="<%= card.id %>"><%= card.escape("title") %></h4>
+          <form class="edit_card_title_form hide" id="<%=card.id%>">
+            <input type="hidden" value="<%=card.id%>" name="card[id]">
+            <input type="text" id="<%= card.id %>" class="form-control" name="card[title]" value="<%= card.get("title") %>" autocomplete="off" style="width:40%; float:left;">
+            <input type="submit" value="Save" class="btn btn-sm btn-primary" style="margin: 3px; float:left;">
+            <button type="button" class="btn btn-sm btn-primary exit_edit_card_input" id="<%=card.id%>" style="margin: 3px; float:left; font-size: 9pt; font-weight: bold;">X</button>
+          </form>
         </div>
 
         <div class="modal-body">
@@ -29,7 +34,6 @@
         </div>
 
       </div><!-- /.modal-content -->
-      </form>
     </div><!-- /.modal-dialog -->
   
   </div><!-- /.modal -->

@@ -102,7 +102,6 @@ T.Views.List = Backbone.View.extend({
 
   toggleNewCardInput: function (event) {
     event.preventDefault();
-    console.log("in toggle n card input");
 
     $("#" + event.target.id + ".new_card_form").toggleClass("hide");
     $("#" + event.target.id + ".new_card_link").toggleClass("hide");
@@ -121,12 +120,18 @@ T.Views.List = Backbone.View.extend({
     // don't allow blank cards
     if (card.get("title") !== "") {
       that.collection.add(card);
-      card.save();
-
-      var cardView = new T.Views.Card({
-        model: card
-      })
-      that.$(".connectedListSortable").append(cardView.render().$el);
+      card.save({}, {
+        success: function(resp) {
+          console.log("successful card save")
+          var cardView = new T.Views.Card({
+            model: card
+          })
+          that.$(".connectedListSortable").append(cardView.render().$el);
+        },
+        error: function(resp) {
+          console.log(resp);
+        }
+      });
 
       // clear input field
       event.currentTarget.children[1].value = "";
