@@ -5,7 +5,7 @@
       <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
         <span class="caret" style="color:white;"></span>
       </a>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="color: gray;">
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
         <li>
           <a data-toggle="modal" href="#deleteList<%= list.id %>" class="btn btn-danger dropdown-menu-button">Delete this List</a>
         </li>
@@ -13,20 +13,26 @@
 </div>
   </div>
 
-  <div class="listTitle"><%= list.escape("title") %></div>
+  <p class="listTitle" id="<%=list.id%>"><%= list.escape("title") %></p>
+  <form class="edit_list_title_form hide" id="<%=list.id%>">
+    <input type="hidden" value="<%=list.id%>" name="list[id]">
+    <input type="text" class="form-control" name="list[title]" value="<%= list.get("title") %>" autocomplete="off" style="width:40%; float:left;">
+    <input type="submit" value="Save" class="btn btn-sm btn-primary edit_list_title" style="margin: 3px; float:left;">
+    <button type="button" class="btn btn-sm btn-primary exit_edit_list_input" id="<%=list.id%>" style="margin: 3px; float:left; font-size: 9pt; font-weight: bold;">X</button>
+  </form>
 
   <div class="connectedListSortable cards<%=list.id%>" style="max-height:<%= listMaxHeight %>;">
     
   </div>
 
   <!-- Button trigger show Card input field -->
-  <a class="new_card_link listTitle" id="<%=list.id%>">Add a Card...</a>
-    <form class="new_card_form hide" id="<%=list.id%>">
-      <input type="hidden" value="<%=list.id%>" name="card[list_id]">
-      <input type="text" class="form-control" name="card[title]" autocomplete="off">
-      <input type="submit" value="Create Card" class="btn btn-sm btn-primary create_card" style="margin: 3px; float:right;">
-      <button type="button" class="btn btn-sm btn-primary exit_card_input" id="<%=list.id%>" style="margin: 3px; float:right; font-size: 9pt; font-weight: bold;">X</button>
-    </form>
+  <a class="new_card_link" id="<%=list.id%>">Add a Card...</a>
+  <form class="new_card_form hide" id="<%=list.id%>">
+    <input type="hidden" value="<%=list.id%>" name="card[list_id]">
+    <input type="text" class="form-control" name="card[title]" autocomplete="off">
+    <input type="submit" value="Create Card" class="btn btn-sm btn-primary create_card" style="margin: 3px; float:right;">
+    <button type="button" class="btn btn-sm btn-primary exit_card_input" id="<%=list.id%>" style="margin: 3px; float:right; font-size: 9pt; font-weight: bold;">X</button>
+  </form>
 </div>
 
 <!-- Modal to confirm delete list-->
@@ -43,7 +49,7 @@
 
         <div class="modal-body">
           <h4 class="modal-title">
-          Are you sure you want to delete this list? All of it's contents including it's cards will be deleted. This cannot be undone.
+          Are you sure you want to delete this list? All of its contents including its cards will be deleted. This cannot be undone.
           </h4>
         </div>
 

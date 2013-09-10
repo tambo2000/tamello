@@ -4,6 +4,8 @@ T.Views.List = Backbone.View.extend({
 
   className: "listCell",
 
+  dragged: false,
+
 	id: function() {
 		return "" + this.model.id;
 	},
@@ -50,7 +52,6 @@ T.Views.List = Backbone.View.extend({
 		});
 
     that.$el.html(renderedContent);
-    //setCSS();
 
 		that.collection.each(function(card) {
 			var cardView = new T.Views.Card({
@@ -86,6 +87,7 @@ T.Views.List = Backbone.View.extend({
           return parseInt(ID);
         });
         
+
         // update position attribute of each card and save to server
         that.collection.each( function(card) {
           card.set("list_id", that.model.id);
@@ -100,6 +102,7 @@ T.Views.List = Backbone.View.extend({
 
   toggleNewCardInput: function (event) {
     event.preventDefault();
+    console.log("in toggle n card input");
 
     $("#" + event.target.id + ".new_card_form").toggleClass("hide");
     $("#" + event.target.id + ".new_card_link").toggleClass("hide");

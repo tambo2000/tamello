@@ -70,18 +70,50 @@ T.Views.BoardView = Backbone.View.extend({
 		//} );
 	},
 
+	dragged: false,
+
 	events: {
 		"submit form#new_list_form": "createList",
 		"click a.new-list-link": "focusOnForm",
+    "mouseup .listTitle": "toggleEditListTitleInput",
+    "submit form.edit_list_title_form": "updateList",
+    "click button.exit_edit_list_input": "toggleEditListTitleInput"
 	},
 
+	updateList: function(event) {
+    event.preventDefault();
+   
+    var that = this;
+    var formData = $(event.currentTarget).serializeJSON();
+    var list = new T.Models.List(formData.list);
+
+    // don't allow blank list title
+    if (list.get("title") !== "") {
+      list.save();
+      $("#" + event.target.id + ".listTitle").text(list.get("title"));
+      that.toggleEditListTitleInput(event);
+    } 
+  },
+
+	toggleEditListTitleInput: function(event) {
+    var that = this;
+    event.preventDefault();
+
+    if (that.dragged === true) {
+        that.dragged = false;
+    }
+    else {
+        $("#" + event.target.id + ".edit_list_title_form").toggleClass("hide");
+        $("#" + event.target.id + ".listTitle").toggleClass("hide");
+
+        $("input.form-control").focus();
+    } 
+  },
+
 	focusOnForm: function(event) {
-		console.log("clicked");
 		$('#newList').on('shown.bs.modal', function () {
   		$(".form-control").focus();
-		})
-		
-		console.log($("input#list_title.form-control"));
+		})		
 	},
 
 	createList: function (event) {
@@ -144,14 +176,15 @@ T.Views.BoardView = Backbone.View.extend({
 		    });
 
 				that.$(".listTable").sortable({
+					delay: 150,
 					forcePlaceholderSize: true,
 					placeholder: "list list_placeholder",
 					opacity: 0.8,
 					tolerance: "intersect",
 					revert: 100,
 					start: function(event, ui) {
-						// ui.placeholder.css("width", (Math.floor(($(window).width() / 5))) + "px");
 		        ui.placeholder.css("width", ui.item.width() - 16 + "px");
+		        that.dragged = true;
 					},
 					update: function(event, ui) {
 						
@@ -164,7 +197,6 @@ T.Views.BoardView = Backbone.View.extend({
 			    		list.set("position", _.indexOf(sortedIDsArr, list.id) );
 			    		list.save();
 			    	});
-			  
 			    }
 				});
 			},

@@ -155,7 +155,7 @@ a.show-card-button {
 }
 
 .listMenu {
-	padding: 3px;
+	/*padding: 3px;*/
 	padding-right: 3%;
 	float: right;
 }
@@ -261,7 +261,7 @@ a#dLabel {
 }
 
 ul.dropdown-menu a {
-	color: $card_text_color;
+	color: $text_color;
 	margin: 5px;
 }
 
@@ -298,6 +298,6 @@ ul.dropdown-menu {
 }
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.2);
     /*-webkit-box-shadow: 0 0 20px rgba(255,255,255,1);*/
 }
