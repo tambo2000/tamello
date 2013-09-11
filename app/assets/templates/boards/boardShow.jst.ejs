@@ -2,9 +2,17 @@
 <div class="mainContent">
 
   <div class="topBar cf">
-    <a href='#boards/<%=board.id%>' style="float: left; font-size: 20pt; margin-left: 10px;"> <%=  board.escape("title") %>  </a>
+    <div style="float: left;" class="boardTitleDiv cf">
+      <a href='#boards/<%=board.id%>' id="<%=board.id%>" class="boardTitle" style="font-size: 20pt; margin-left: 10px;"> <%=  board.escape("title") %>  </a>
+      <form class="edit_board_title hide" id="<%=board.id%>">
+        <input type="hidden" value="<%=board.id%>" name="board[id]">
+        <input type="text" id="<%= board.id %>" class="form-control" name="board[title]" value="<%= board.get("title") %>" autocomplete="off" style="display: inline-block; width: 70%;">
+        <input type="submit" value="Save" class="btn btn-sm btn-primary" style="margin: 3px; display: inline-block;">
+        <button type="button" class="btn btn-sm btn-primary exit_edit_board_input" id="<%=board.id%>" style="margin: 3px; display: inline-block; font-size: 9pt; font-weight: bold;">X</button>
+      </form>
+    </div>
     <a data-toggle="modal" href="#newList" class="btn btn-primary new-list-link" style="float:right;"> Add New List </a>
-    <a href="#" class="btn btn-primary" style="float:right; margin-right: 10px;"> Boards </a>
+    <a href="/boards" class="btn btn-primary back-to-boards" style="float:right; margin-right: 10px;"> Boards </a>
   </div>
 
   <div class="list_container">

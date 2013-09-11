@@ -27,4 +27,5 @@ function setCSS() {
   $(".connectedListSortable").css("max-height", listMaxHeight());
   $(".list").css("min-width", listMinWidth());
   $(".list").css("max-width", listMaxWidth());
+  $(".boardTitleDiv").css("width", listMaxWidth());
 };

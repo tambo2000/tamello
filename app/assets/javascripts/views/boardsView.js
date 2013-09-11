@@ -25,7 +25,7 @@ T.Views.BoardRowView = Backbone.View.extend({
 T.Views.BoardsIndexView = Backbone.View.extend({
 
 	events: {
-		"submit form#new_board_form": "createBoard"
+		"submit form#new_board_form": "createBoard",
 	},
 
 	render: function() {
@@ -61,6 +61,8 @@ T.Views.BoardsIndexView = Backbone.View.extend({
 
 });
 
+
+
 T.Views.BoardView = Backbone.View.extend({
 
 	initialize: function() {
@@ -77,7 +79,45 @@ T.Views.BoardView = Backbone.View.extend({
 		"click a.new-list-link": "focusOnForm",
     "mouseup .listTitle": "toggleEditListTitleInput",
     "submit form.edit_list_title_form": "updateList",
-    "click button.exit_edit_list_input": "toggleEditListTitleInput"
+    "click button.exit_edit_list_input": "toggleEditListTitleInput",
+		"click a.boardTitle": "toggleBoardTitleForm",
+		"submit form.edit_board_title": "editBoardTitle",
+		"click button.exit_edit_board_input": "toggleBoardTitleForm",
+	},
+
+	editBoardTitle: function(event) {
+		event.preventDefault();
+		console.log("editing board Title");
+		var that = this;
+    var formData = $(event.currentTarget).serializeJSON();
+    var board = new T.Models.Board(formData.board);
+    // debugger
+
+    if (board.get("title") !== "") {
+      board.save({}, {
+        success: function(resp) {
+          console.log("successful board save");
+          $("#" + event.target.id + ".boardTitle").text(board.get("title"));
+          // $("#" + event.target.id + ".form-control").val(board.get("title"));
+          that.toggleBoardTitleForm(event);
+        },
+        error: function(resp) {
+          console.log(resp);
+        }
+      });
+    } else {
+      $("input.form-control").focus();
+    }
+	},
+
+	toggleBoardTitleForm: function(event) {
+		var that = this;
+    event.preventDefault();
+
+    $("#" + event.target.id + ".boardTitle").toggleClass("hide");
+    $("#" + event.target.id + ".edit_board_title").toggleClass("hide");
+
+    $("input.form-control").focus();
 	},
 
 	updateList: function(event) {
@@ -146,7 +186,8 @@ T.Views.BoardView = Backbone.View.extend({
 		var that = this;
 
 		var renderedContent = JST["boards/boardShow"]({
-			board: that.model
+			board: that.model,
+			maxWidth: listMaxWidth()
 		});
 
 		that.$el.html(renderedContent);
@@ -173,6 +214,7 @@ T.Views.BoardView = Backbone.View.extend({
   						that.$("tr#" + list.id).append(listView.render().$el);
 			    	}
 					});
+					setCSS();
 		    });
 
 				that.$(".listTable").sortable({

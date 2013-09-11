@@ -31,7 +31,15 @@ class BoardsController < ApplicationController
 	end
 
 	def update
+		@board = Board.find(params[:id])
+		@board.update_attributes(params[:board])
 
+		if @board.save()
+			render :json => @board
+		else
+			render :json => @board.errors.full_messages,
+			:status => 422
+		end
 	end
 
 	def destroy
