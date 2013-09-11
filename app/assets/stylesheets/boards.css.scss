@@ -165,10 +165,12 @@ a.show-card-button {
 	background-color: $main_color;
 	border-style: solid;
 	border-color: white;
-	border-width: 1px;
+	border-width: 0px;
 	border-radius: 5px;
 	/*float: left;*/
-	padding: 3px;
+	/*padding: 3px;*/
+	padding-left: 3px;
+	padding-right: 3px;
 	margin-top: 15px;
 	margin-bottom: 20px;
 	margin-right: 13px;

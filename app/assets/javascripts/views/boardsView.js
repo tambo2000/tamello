@@ -83,6 +83,15 @@ T.Views.BoardView = Backbone.View.extend({
 		"click a.boardTitle": "toggleBoardTitleForm",
 		"submit form.edit_board_title": "editBoardTitle",
 		"click button.exit_edit_board_input": "toggleBoardTitleForm",
+		"click button.delete-board": "deleteBoard"
+	},
+
+	deleteBoard: function(event) {
+		event.preventDefault();
+		var that = this;
+
+		that.model.destroy();
+    window.location.href = "/boards";
 	},
 
 	editBoardTitle: function(event) {
@@ -91,8 +100,8 @@ T.Views.BoardView = Backbone.View.extend({
 		var that = this;
     var formData = $(event.currentTarget).serializeJSON();
     var board = new T.Models.Board(formData.board);
-    // debugger
 
+    // Don't allow empty titles
     if (board.get("title") !== "") {
       board.save({}, {
         success: function(resp) {
@@ -106,6 +115,7 @@ T.Views.BoardView = Backbone.View.extend({
         }
       });
     } else {
+      $(".boardTitleDiv").effect( "shake" );
       $("input.form-control").focus();
     }
 	},
@@ -132,7 +142,9 @@ T.Views.BoardView = Backbone.View.extend({
       list.save();
       $("#" + event.target.id + ".listTitle").text(list.get("title"));
       that.toggleEditListTitleInput(event);
-    } 
+    } else {
+      $("#" + event.target.id + ".list").effect( "shake" );
+    }
   },
 
 	toggleEditListTitleInput: function(event) {
@@ -163,23 +175,30 @@ T.Views.BoardView = Backbone.View.extend({
 
     var formData = $(event.currentTarget).serializeJSON();
     
-    var list = new T.Models.List();
+    var list = new T.Models.List(formData.list);
  
-    list.save(formData.list, {
-    	success: function(resp) {
-    		var cards = new T.Collections.Cards;
-				var listView = new T.Views.List({
-	      	model: list,
-	      	collection: cards
-  			});
-  	
-  			that.$("tr").append(listView.render().$el);
-  			setCSS();
-    	}
-    });
+    // don't allow blank list title
+    if (list.get("title") !== "") {
+      list.save({}, {
+	    	success: function(resp) {
+	    		var cards = new T.Collections.Cards;
+					var listView = new T.Views.List({
+		      	model: list,
+		      	collection: cards
+	  			});
+	  	
+	  			that.$("tr").append(listView.render().$el);
+	  			setCSS();
 
-  	$('#newList').modal('hide');
-    $('.modal-backdrop').remove();
+	  			$('#newList').modal('hide');
+		      $('.modal-backdrop').remove();
+	    	}
+    	
+	    });
+    } else {
+      $(event.target).effect( "shake" );
+      $("input.form-control").focus();
+    }
   },
 
 	render: function(id) {

@@ -23,7 +23,8 @@ T.Views.List = Backbone.View.extend({
     "submit form.new_card_form": "createCard",
     "click button.exit_card_input": "toggleNewCardInput",
     "click button.delete-card": "deleteCard",
-    "click button.delete-list": "deleteList"
+    "click button.delete-list": "deleteList",
+    // "hover button."
 	},
 
   deleteList: function(event) {
@@ -136,6 +137,7 @@ T.Views.List = Backbone.View.extend({
       // clear input field
       event.currentTarget.children[1].value = "";
     } else {
+      $("#" + event.target.id + ".list").effect( "shake" );
       $("input.form-control").focus();
     }
   }
