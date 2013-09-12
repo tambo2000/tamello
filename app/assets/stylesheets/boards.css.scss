@@ -293,6 +293,10 @@ ul.dropdown-menu {
   content: "";
 }
 
+.ui-datepicker {
+	z-index: 99999 !important;
+}
+
 /*always show scrollbar*/
 ::-webkit-scrollbar {
     -webkit-appearance: none;

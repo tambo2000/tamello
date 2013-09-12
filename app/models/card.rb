@@ -1,5 +1,5 @@
 class Card < ActiveRecord::Base
-  attr_accessible :list_id, :title, :position
+  attr_accessible :list_id, :title, :position, :due_date
 
   belongs_to :list
 

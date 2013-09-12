@@ -3,7 +3,7 @@ T.Views.BoardRowView = Backbone.View.extend({
 	className: "boardRow",
 
 	initialize: function() {
-		this.listenTo(this.model, 'change', this.render());
+		// this.listenTo(this.model, 'change', this.render());
 	},
 
 	events: {
@@ -35,12 +35,12 @@ T.Views.BoardsIndexView = Backbone.View.extend({
 
 		that.$el.html(renderedContent);
 
-		// var timeout = 0;
+		var timeout = 0;
 		that.collection.each(function (board) {
 			var boardRowView = new T.Views.BoardRowView({
       	model: board
     	});
-    	// timeout += 100;
+    	// timeout += 150;
     	// setTimeout(function() {
 				that.$("div.boardList").append(boardRowView.render().$el);
 			// }, timeout);
@@ -50,13 +50,25 @@ T.Views.BoardsIndexView = Backbone.View.extend({
 	},
 
 	createBoard: function (event) {
+		event.preventDefault();
     var that = this;
 
     var formData = $(event.currentTarget).serializeJSON();
     
     var board = new T.Models.Board(formData.board);
-    that.collection.add(board);
-    board.save();
+    board.save({}, {
+    	success: function(resp) {
+		    that.collection.add(board);
+
+		    var newBoardRow = new T.Views.BoardRowView({
+		    	model: board
+		    });
+
+		    that.$(".boardList").append(newBoardRow.render().$el);
+  			$('#myModal').modal('hide');
+	      $('.modal-backdrop').remove();
+    	}
+    });
   }
 
 });
@@ -163,6 +175,7 @@ T.Views.BoardView = Backbone.View.extend({
   },
 
 	focusOnForm: function(event) {
+		// the modal complicates things
 		$('#newList').on('shown.bs.modal', function () {
   		$(".form-control").focus();
 		})		
