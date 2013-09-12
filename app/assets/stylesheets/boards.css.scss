@@ -235,9 +235,9 @@ td {
 	border-color: white;
 }
 
-.modal-title, label {
+/*.modal-title, label {
 	color: gray;
-}
+}*/
 
 .hide {
 	display: none;
@@ -295,6 +295,26 @@ ul.dropdown-menu {
 
 .ui-datepicker {
 	z-index: 99999 !important;
+}
+
+.due-date-body {
+	margin-top: 3px;
+	text-align: center;
+	color: $text_color;
+	border-radius: 3px;
+	opacity: 0.3;
+}
+
+.red {
+	background-color: red;
+}
+
+.green {
+	background-color: green;
+}
+
+.yellow {
+	background-color: #B2B200;
 }
 
 /*always show scrollbar*/

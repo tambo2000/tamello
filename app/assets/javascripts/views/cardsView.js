@@ -4,6 +4,11 @@ T.Views.Card = Backbone.View.extend({
 
 	initialize: function() {
       // this.listenTo(this.model, 'change', this.render());
+    this.oneDay = 24*60*60*1000;
+		this.today = new Date();
+		this.daysLeft = function() {
+			return ((this.model.get("due_date") - this.today) / this.oneDay);
+		}
   },
 
 	id: function() {
@@ -17,20 +22,76 @@ T.Views.Card = Backbone.View.extend({
 		"click button.close": "hideCardTitleForm",
 		"click button.add-due-date-btn": "toggleDateInput",
 		"submit .due-date-form": "saveDate",
-		"click .remove-date": "removeDate"
+		"click .remove-date": "removeDate",
+		"mouseenter .modal-footer": "showModalFooter",
+		"mouseleave .modal-footer": "hideModalFooter",
+		"submit .new-comment-form": "createComment"
+	},
+
+	createComment: function(event) {
+		event.preventDefault();
+    var that = this;
+    var formData = $(event.currentTarget).serializeJSON();
+    var comment = new T.Models.Comment(formData.comment);
+
+    // don't allow blank comments
+    if (comment.get("body") !== "") {
+      // that.collection.add(comment);
+      comment.save({}, {
+        success: function(resp) {
+          console.log("successful comment save")
+          var commentView = new T.Views.Comment({
+            model: comment
+          })
+          that.$(".comment-list").append(commentView.render().$el);
+          that.$(".card-comment").val("");
+          that.$(".card-comment").focus();
+          // debugger
+        },
+        error: function(resp) {
+          console.log(resp);
+        }
+      });
+    } else {
+      $("#" + event.target.id + ".list").effect( "shake" );
+      $("input.form-control").focus();
+    }
+	},
+
+	test: function(event) {
+		console.log("testing");
+	},
+
+	showModalFooter: function(event) {
+		var that = this;
+		console.log("entering");
+		that.$(".modal-footer-content").removeClass("hide");
+		that.$(".modal-down-arrow").addClass("hide");
+	},
+
+	hideModalFooter: function(event) {
+		var that = this;
+		console.log("exiting");
+		that.$(".modal-footer-content").addClass("hide");
+		that.$(".modal-down-arrow").removeClass("hide");
 	},
 
 	colorDate: function() {
 		var that = this;
+		
   	that.$("#" + that.model.id + ".due-date-body").removeClass("red");
   	that.$("#" + that.model.id + ".due-date-body").removeClass("green");
   	that.$("#" + that.model.id + ".due-date-body").removeClass("yellow");
-  	// if ()
+  	if (that.daysLeft() < 1) {
+	  	that.$("#" + that.model.id + ".due-date-body").addClass("red");
+  	} else if (that.daysLeft() < 3) {
+  		that.$("#" + that.model.id + ".due-date-body").addClass("yellow");
+  	} else {
+  		that.$("#" + that.model.id + ".due-date-body").addClass("green");
+  	}
 	},
 
 	removeDate: function(event) {
-		console.log("removing date");
-		// debugger
 		this.$("input#datepicker" + this.model.id).val("");
 	},
 
@@ -58,16 +119,12 @@ T.Views.Card = Backbone.View.extend({
     }
     card.save({}, {
     	success: function(resp) {
-    		console.log("good");
-    		console.log(resp);
-    	},
-    	error: function(resp) {
-    		console.log("bad");
+    		that.model = card;
+				that.colorDate();
     	}
     });
 
-    that.$("#" + that.model.id + ".due-date-body").text("Due Date: " + stringDate);
-
+    that.$("#" + that.model.id + ".due-date-body").text("" + stringDate);
 		that.toggleDateInput(event);
 	},
 
@@ -134,9 +191,29 @@ T.Views.Card = Backbone.View.extend({
 
     that.$el.html(renderedContent);
 
+    var comments = new T.Collections.Comments();
+		comments.card_id = that.model.id;
+	
+		comments.fetch( { 
+			success: function(resp) {
+				comments.each( function(comment) {
+					var commentView = new T.Views.Comment({
+						model: comment
+					})
+
+					that.$(".comment-list").append(commentView.render().el);
+				});
+			}
+		});
+
     that.$( "#datepicker" + that.model.id ).datepicker({
-      dateFormat: "D M d yy"
+      dateFormat: "D M d yy",
+      onClose: function() {
+      	that.showModalFooter();
+      }
     });
+
+    that.colorDate();
 
     return that;
 	}

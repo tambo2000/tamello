@@ -9,7 +9,11 @@ Tamello::Application.routes.draw do
   	resources :cards, :only => [:index]
   end
 
-  resources :cards, :only => [:show, :create, :update, :destroy]
+  resources :cards, :only => [:show, :create, :update, :destroy] do
+    resources :comments, :only => [:index]
+  end
+
+  resources :comments, :only => [:create, :update, :destroy]
 
   resource :session, :only => [:new, :create, :destroy]
   

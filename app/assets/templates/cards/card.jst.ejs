@@ -3,7 +3,7 @@
 	
 
   <div class="due-date-body <% if (due_date === '') {%> hide <% } %>" id="<%= card.id %>">
-    Due Date: <%= due_date %>
+    <%= due_date %>
   </div>
 
   </a>
@@ -29,21 +29,31 @@
         </div>
 
         <div class="modal-body">
-			  	<label for="list_title"><%= card.get("description") %></label>
-			  	<input id="list_title" type="text" class="form-control hide" name="list[title]"><br>
+			  	<ul class="comment-list">
+          </ul>
 
-			  	<input id="list_board_id" type="hidden" name="list[board_id]" value="<%= board.id %>">
+          <form class="new-comment-form" id="<%= card.id %>" >
+          <input class="form-control card-comment" style="color: gray;" name="comment[body]" placeholder="Add Comment">
+          <input type="hidden" name="comment[card_id]" value="<%= card.id %>">
+
+          </form>
+			  	
+
+
 
           
           <div class="due-date-body <% if (due_date === '') {%> hide <% } %>" id="<%= card.id %>">
-            Due Date: <%= due_date %>
+            <%= due_date %>
           </div>
           
 
         </div>
 
         <div class="modal-footer">
-
+          <div class="modal-down-arrow">
+          <span class="ui-icon ui-icon-triangle-1-s" style="opacity: 0.6"></span>
+          </div>
+          <div class="modal-footer-content hide">
           <div class="dateMenu" style="float:left;">
             
             <button type="button" class="btn btn-primary add-due-date-btn" id="<%= card.id %>">
@@ -60,11 +70,12 @@
                 </div>
               </form>
             </div>
-            
+
           </div>
 
           <button type="button" class="btn btn-danger delete-card" id="<%= card.id %>" data-dismiss="modal">Delete this Card</button>
-        
+          </div>
+
         </div>
 
       </div><!-- /.modal-content -->

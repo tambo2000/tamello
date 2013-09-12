@@ -23,8 +23,7 @@ T.Views.List = Backbone.View.extend({
     "submit form.new_card_form": "createCard",
     "click button.exit_card_input": "toggleNewCardInput",
     "click button.delete-card": "deleteCard",
-    "click button.delete-list": "deleteList",
-    // "hover button."
+    "click button.delete-list": "deleteList"
 	},
 
   deleteList: function(event) {
@@ -118,19 +117,30 @@ T.Views.List = Backbone.View.extend({
     
     var card = new T.Models.Card(formData.card);
 
+    var comments = new T.Collections.Comments();
+    comments.set("card_id", that.model.id);
+
     // don't allow blank cards
     if (card.get("title") !== "") {
       that.collection.add(card);
       card.save({}, {
         success: function(resp) {
           console.log("successful card save")
-          var cardView = new T.Views.Card({
-            model: card
-          })
-          that.$(".connectedListSortable").append(cardView.render().$el);
+          comments.fetch({
+            success: function(resp) {
+              var cardView = new T.Views.Card({
+                model: card,
+                collection: comments
+              })
+              that.$(".connectedListSortable").append(cardView.render().$el);
+            },
+            error: function(resp) {
+              console.log("bad comments fetch");
+            }
+          }) 
         },
         error: function(resp) {
-          console.log(resp);
+          console.log("bad card save");
         }
       });
 
