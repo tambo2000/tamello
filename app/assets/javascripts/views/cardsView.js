@@ -34,9 +34,11 @@ T.Views.Card = Backbone.View.extend({
 		var that = this;
 
 		var comment = that.collection.get(event.target.id);
-		comment.destroy();
-		that.$("#" + event.target.id + ".comment").remove();
-		that.displayComments();
+    that.$("#" + event.target.id + ".comment").toggle( "drop", {direction: "right"} , 400, function() {
+			comment.destroy();
+			that.$("#" + event.target.id + ".comment").remove();
+			that.displayComments();
+		});
 	},
 
 	createComment: function(event) {
@@ -81,6 +83,7 @@ T.Views.Card = Backbone.View.extend({
 			that.$(".card-comment-icon-front").removeClass("hide");
 			that.$("div.comment-count").text(that.collection.size());
 			that.$(".due-date-body").css("width", "80%");
+			that.$(".due-date-body-modal").css("width", "100%");
 		}
 	},
 
@@ -108,18 +111,12 @@ T.Views.Card = Backbone.View.extend({
   	that.$("#" + that.model.id + ".due-date-body").removeClass("red");
   	that.$("#" + that.model.id + ".due-date-body").removeClass("green");
   	that.$("#" + that.model.id + ".due-date-body").removeClass("yellow");
-  	that.$("#" + that.model.id + ".due-date-body-modal").removeClass("red");
-  	that.$("#" + that.model.id + ".due-date-body-modal").removeClass("green");
-  	that.$("#" + that.model.id + ".due-date-body-modal").removeClass("yellow");
   	if (that.daysLeft() < 1) {
 	  	that.$("#" + that.model.id + ".due-date-body").addClass("red");
-	  	that.$("#" + that.model.id + ".due-date-body-modal").addClass("red");
   	} else if (that.daysLeft() < 3) {
   		that.$("#" + that.model.id + ".due-date-body").addClass("yellow");
-  		that.$("#" + that.model.id + ".due-date-body-modal").addClass("yellow");
   	} else {
   		that.$("#" + that.model.id + ".due-date-body").addClass("green");
-  		that.$("#" + that.model.id + ".due-date-body-modal").addClass("green");
   	}
 	},
 

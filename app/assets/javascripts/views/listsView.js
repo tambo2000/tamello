@@ -34,18 +34,23 @@ T.Views.List = Backbone.View.extend({
   },
 
   deleteList: function(event) {
-    this.model.destroy();
-    this.remove();
-    $('.modal-backdrop').remove();
+    var that = this;
+    that.$el.toggle( "drop", {direction: "down"} , 800, function() {
+      that.model.destroy();
+      that.remove();
+      $('.modal-backdrop').remove();
+    });
   },
 
   deleteCard: function(event) {
     event.preventDefault();
     var that = this;
     var card = that.collection.get(event.currentTarget.id);
-    card.destroy();
-    this.render();
-    $('.modal-backdrop').remove();
+    that.$("#" + event.currentTarget.id + ".card").toggle( "drop", {direction: "left"} , 400, function() {
+      card.destroy();
+      that.render();
+      $('.modal-backdrop').remove();
+    });
   },
 
 	render: function() {
