@@ -209,7 +209,9 @@ T.Views.BoardView = Backbone.View.extend({
 	  			});
 	  	
 	  			that.$("tr").append(listView.render().$el);
+	  			that.$("#" + list.id + ".list").css( "display", "none");
 	  			setCSS();
+          that.$("#" + list.id + ".list").toggle( "drop", {direction: "up"} , 400);
 
 	  			$('#newList').modal('hide');
 		      $('.modal-backdrop').remove();

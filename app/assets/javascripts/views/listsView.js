@@ -142,6 +142,8 @@ T.Views.List = Backbone.View.extend({
                 collection: comments
               })
               that.$(".connectedListSortable").append(cardView.render().$el);
+              that.$("#" + card.id + ".card").css( "display", "none");
+              that.$("#" + card.id + ".card").toggle( "drop", {direction: "left"} , 400);
             },
             error: function(resp) {
               console.log("bad comments fetch");
