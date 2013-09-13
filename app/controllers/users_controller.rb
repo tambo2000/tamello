@@ -11,7 +11,14 @@ class UsersController < ApplicationController
       @board.save
 
       List.create_defaults(@board.id)
-      
+
+      lists = @board.lists
+      list = lists.first
+
+      Card.new({title: "This is a card. You can move me around or click on me to add details.", list_id: list.id}).save
+      Card.new({title: "You can also move lists around.", list_id: list.id}).save
+      Card.new({title: "You click on almost any title to rename it.", list_id: list.id}).save
+
       redirect_to boards_url
     else
       render :json => @user.errors.full_messages
