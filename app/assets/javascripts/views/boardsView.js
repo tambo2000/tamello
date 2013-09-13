@@ -95,8 +95,16 @@ T.Views.BoardView = Backbone.View.extend({
 		"click a.boardTitle": "toggleBoardTitleForm",
 		"submit form.edit_board_title": "editBoardTitle",
 		"click button.exit_edit_board_input": "toggleBoardTitleForm",
-		"click button.delete-board": "deleteBoard"
+		"click button.delete-board": "deleteBoard",
+    "mouseenter div.boardMenu": "dropdownToggle"
 	},
+
+	dropdownToggle: function(event) {
+    var that = this;
+    console.log("board dropdown");
+    
+    that.$("#boardLabel.dropdown-toggle").dropdown('toggle');
+  },
 
 	deleteBoard: function(event) {
 		event.preventDefault();

@@ -1,5 +1,5 @@
 
-  <a data-toggle="modal" href="#cardShow<%= card.id %>" id="<%= card.id %>" class="btn show-card-link" style="text-align:left;"> <%= card.escape("title") %>
+  <a data-toggle="modal" href="#cardShow<%= card.id %>" id="<%= card.id %>" class="btn btn-default" style="text-align:left;"> <%= card.escape("title") %>
 	
   <div style="width:100%; ">
     <div class="card-comment-icon-front" id="<%= card.id %>" style="display:inline-block; opacity:0.6; margin-top:3px">
@@ -50,7 +50,7 @@
 
 
           
-          <div class="due-date-body <% if (due_date === '') {%> hide <% } %>" id="<%= card.id %>">
+          <div class="due-date-body-modal <% if (due_date === '') {%> hide <% } %>" id="<%= card.id %>">
             <%= due_date %>
           </div>
           

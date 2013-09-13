@@ -30,8 +30,6 @@ T.Views.List = Backbone.View.extend({
 
   dropdownToggle: function(event) {
     var that = this;
-    console.log("dropdown toggle");
-    console.log(that.$("#" + event.target.id + ".dropdown"));
     that.$("#" + event.currentTarget.id + ".dropdown-toggle").dropdown('toggle');
   },
 

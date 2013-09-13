@@ -76,9 +76,11 @@ T.Views.Card = Backbone.View.extend({
 		console.log("displaying comments");
 		if (that.collection.size() === 0) {
 			that.$(".card-comment-icon-front").addClass("hide");
+			that.$(".due-date-body").css("width", "100%");
 		} else {
 			that.$(".card-comment-icon-front").removeClass("hide");
 			that.$("div.comment-count").text(that.collection.size());
+			that.$(".due-date-body").css("width", "80%");
 		}
 	},
 
@@ -106,12 +108,18 @@ T.Views.Card = Backbone.View.extend({
   	that.$("#" + that.model.id + ".due-date-body").removeClass("red");
   	that.$("#" + that.model.id + ".due-date-body").removeClass("green");
   	that.$("#" + that.model.id + ".due-date-body").removeClass("yellow");
+  	that.$("#" + that.model.id + ".due-date-body-modal").removeClass("red");
+  	that.$("#" + that.model.id + ".due-date-body-modal").removeClass("green");
+  	that.$("#" + that.model.id + ".due-date-body-modal").removeClass("yellow");
   	if (that.daysLeft() < 1) {
 	  	that.$("#" + that.model.id + ".due-date-body").addClass("red");
+	  	that.$("#" + that.model.id + ".due-date-body-modal").addClass("red");
   	} else if (that.daysLeft() < 3) {
   		that.$("#" + that.model.id + ".due-date-body").addClass("yellow");
+  		that.$("#" + that.model.id + ".due-date-body-modal").addClass("yellow");
   	} else {
   		that.$("#" + that.model.id + ".due-date-body").addClass("green");
+  		that.$("#" + that.model.id + ".due-date-body-modal").addClass("green");
   	}
 	},
 

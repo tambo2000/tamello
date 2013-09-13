@@ -235,6 +235,12 @@ td {
 	border-color: white;
 }
 
+.btn-default:hover {
+	background-color: white;
+	color: $main_color;
+	border-color: white;
+}
+
 .modal-title, label {
 	color: gray;
 }
@@ -243,10 +249,10 @@ td {
 	display: none;
 }
 
-.card>.btn, .card>.btn:active {
+.card>.btn /*.card>.btn:active*/ {
 	/*border-style: solid;
 	border-color: black;*/
-	background-color: $card_color;
+	/*background-color: $card_color;*/
 	color: $card_text_color;
 	width: 100%;
 	white-space: normal;
@@ -302,7 +308,7 @@ ul.dropdown-menu {
 	z-index: 99999 !important;
 }
 
-.due-date-body {
+.due-date-body, .due-date-body-modal {
 	margin-top: 3px;
 	text-align: center;
 	color: $text_color;
