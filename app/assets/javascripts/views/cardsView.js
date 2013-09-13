@@ -9,6 +9,7 @@ T.Views.Card = Backbone.View.extend({
 		this.daysLeft = function() {
 			return ((this.model.get("due_date") - this.today) / this.oneDay);
 		}
+		this.collection = new T.Collections.Comments();
   },
 
 	id: function() {
@@ -25,7 +26,17 @@ T.Views.Card = Backbone.View.extend({
 		"click .remove-date": "removeDate",
 		"mouseenter .modal-footer": "showModalFooter",
 		"mouseleave .modal-footer": "hideModalFooter",
-		"submit .new-comment-form": "createComment"
+		"submit .new-comment-form": "createComment",
+		"click a.comment-delete": "deleteComment"
+	},
+
+	deleteComment: function(event) {
+		var that = this;
+
+		var comment = that.collection.get(event.target.id);
+		comment.destroy();
+		that.$("#" + event.target.id + ".comment").remove();
+		that.displayComments();
 	},
 
 	createComment: function(event) {
@@ -47,15 +58,28 @@ T.Views.Card = Backbone.View.extend({
           that.$(".card-comment").val("");
           that.$(".card-comment").focus();
           // debugger
+          that.collection.add(comment);
+          that.displayComments();
         },
         error: function(resp) {
           console.log(resp);
         }
       });
     } else {
-      $("#" + event.target.id + ".list").effect( "shake" );
+      $("#" + event.target.id + ".new-comment-form").effect( "shake" );
       $("input.form-control").focus();
     }
+	},
+
+	displayComments: function() {
+		var that = this;
+		console.log("displaying comments");
+		if (that.collection.size() === 0) {
+			that.$(".card-comment-icon-front").addClass("hide");
+		} else {
+			that.$(".card-comment-icon-front").removeClass("hide");
+			that.$("div.comment-count").text(that.collection.size());
+		}
 	},
 
 	test: function(event) {
@@ -196,6 +220,7 @@ T.Views.Card = Backbone.View.extend({
 	
 		comments.fetch( { 
 			success: function(resp) {
+				that.collection = comments;
 				comments.each( function(comment) {
 					var commentView = new T.Views.Comment({
 						model: comment
@@ -203,6 +228,7 @@ T.Views.Card = Backbone.View.extend({
 
 					that.$(".comment-list").append(commentView.render().el);
 				});
+				that.displayComments();
 			}
 		});
 

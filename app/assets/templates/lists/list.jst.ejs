@@ -1,12 +1,12 @@
 <div class="list cf" id="<%= list.id %>" style="min-width:<%= listMinWidth %>; max-width:<%= listMaxWidth %>">
 
   <div class="cf">
-    <div class="listMenu">
-      <div class="dropdown">
-        <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+    <div class="listMenu" id="<%= list.id %>">
+      <div class="dropdown" id="<%= list.id %>">
+        <a id="<%= list.id %>" class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
           <span class="caret" style="color:white;"></span>
         </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="<%= list.id %>">
           <li>
             <a data-toggle="modal" href="#deleteList<%= list.id %>" class="btn btn-danger dropdown-menu-button">Delete this List</a>
           </li>

@@ -257,7 +257,7 @@ T.Views.BoardView = Backbone.View.extend({
 					tolerance: "intersect",
 					revert: 100,
 					start: function(event, ui) {
-		        ui.placeholder.css("width", ui.item.width() - 16 + "px");
+		        ui.placeholder.css("width", ui.item.width() + 1 + "px");
 		        that.dragged = true;
 					},
 					update: function(event, ui) {
@@ -278,6 +278,8 @@ T.Views.BoardView = Backbone.View.extend({
 			error: function(resp) {
 				console.log(resp);
 		}});
+
+		that.delegateEvents();
 
     return that;
 	}

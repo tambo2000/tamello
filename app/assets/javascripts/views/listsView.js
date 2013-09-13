@@ -23,8 +23,17 @@ T.Views.List = Backbone.View.extend({
     "submit form.new_card_form": "createCard",
     "click button.exit_card_input": "toggleNewCardInput",
     "click button.delete-card": "deleteCard",
-    "click button.delete-list": "deleteList"
+    "click button.delete-list": "deleteList",
+    "mouseenter a.dropdown-toggle": "dropdownToggle",
+    // "mouseleave div.listMenu": "dropdownToggle"
 	},
+
+  dropdownToggle: function(event) {
+    var that = this;
+    console.log("dropdown toggle");
+    console.log(that.$("#" + event.target.id + ".dropdown"));
+    that.$("#" + event.currentTarget.id + ".dropdown-toggle").dropdown('toggle');
+  },
 
   deleteList: function(event) {
     this.model.destroy();
@@ -96,7 +105,7 @@ T.Views.List = Backbone.View.extend({
         });
       }
     });
-
+    that.delegateEvents();
     return that;
 	},
 
@@ -140,7 +149,6 @@ T.Views.List = Backbone.View.extend({
           console.log("bad card save");
         }
       });
-
       // clear input field
       event.currentTarget.children[1].value = "";
     } else {

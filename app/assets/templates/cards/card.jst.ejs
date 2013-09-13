@@ -1,9 +1,17 @@
 
   <a data-toggle="modal" href="#cardShow<%= card.id %>" id="<%= card.id %>" class="btn show-card-link" style="text-align:left;"> <%= card.escape("title") %>
 	
+  <div style="width:100%; ">
+    <div class="card-comment-icon-front" id="<%= card.id %>" style="display:inline-block; opacity:0.6; margin-top:3px">
+      <span class="ui-icon ui-icon-comment card-comment-icon" style="display:inline-block; vertical-align: top">
+      </span>
+      <div class="comment-count" style="display:inline-block; ">
+      </div>
+    </div>
 
-  <div class="due-date-body <% if (due_date === '') {%> hide <% } %>" id="<%= card.id %>">
-    <%= due_date %>
+    <div class="due-date-body <% if (due_date === '') {%> hide <% } %>" id="<%= card.id %>" style="display:inline-block; width:80%; float:right;">
+      <%= due_date %>
+    </div>
   </div>
 
   </a>
