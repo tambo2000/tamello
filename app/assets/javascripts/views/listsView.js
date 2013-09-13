@@ -35,7 +35,7 @@ T.Views.List = Backbone.View.extend({
 
   deleteList: function(event) {
     var that = this;
-    that.$el.toggle( "drop", {direction: "down"} , 800, function() {
+    that.$el.toggle( "drop", {direction: "down"} , 400, function() {
       that.model.destroy();
       that.remove();
       $('.modal-backdrop').remove();

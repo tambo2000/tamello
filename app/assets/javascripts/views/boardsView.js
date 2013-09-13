@@ -185,6 +185,7 @@ T.Views.BoardView = Backbone.View.extend({
 	focusOnForm: function(event) {
 		// the modal complicates things
 		$('#newList').on('shown.bs.modal', function () {
+			$(".form-control").val("");
   		$(".form-control").focus();
 		})		
 	},
