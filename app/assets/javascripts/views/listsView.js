@@ -110,22 +110,19 @@ T.Views.List = Backbone.View.extend({
 
 	createCard: function (event) {
     event.preventDefault();
-
     var that = this;
-
     var formData = $(event.currentTarget).serializeJSON();
-    
     var card = new T.Models.Card(formData.card);
 
     var comments = new T.Collections.Comments();
-    comments.set("card_id", that.model.id);
 
     // don't allow blank cards
     if (card.get("title") !== "") {
       that.collection.add(card);
       card.save({}, {
         success: function(resp) {
-          console.log("successful card save")
+          console.log("successful card save");
+          comments.card_id = card.id;
           comments.fetch({
             success: function(resp) {
               var cardView = new T.Views.Card({
@@ -147,6 +144,7 @@ T.Views.List = Backbone.View.extend({
       // clear input field
       event.currentTarget.children[1].value = "";
     } else {
+      console.log("blank card");
       $("#" + event.target.id + ".list").effect( "shake" );
       $("input.form-control").focus();
     }

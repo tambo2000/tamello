@@ -235,9 +235,9 @@ td {
 	border-color: white;
 }
 
-/*.modal-title, label {
+.modal-title, label {
 	color: gray;
-}*/
+}
 
 .hide {
 	display: none;
@@ -256,6 +256,10 @@ td {
 
 .card>.btn:active {
 	cursor: move;
+}
+
+.new_card_link:hover {
+	color: white;
 }
 
 a#dLabel { 
