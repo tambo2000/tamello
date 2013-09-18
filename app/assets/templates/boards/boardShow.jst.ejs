@@ -3,7 +3,7 @@
 
   <div class="topBar cf">
     <div style="float: left;" class="boardTitleDiv cf">
-      <a href='#boards/<%=board.id%>' id="<%=board.id%>" class="boardTitle" style="font-size: 20pt; margin-left: 10px; margin-right: 20px; float:left;"> <%=  board.escape("title") %>  </a>
+      <div id="<%=board.id%>" class="boardTitle" style="font-size: 20pt; margin-left: 10px; margin-right: 20px; float:left; cursor:text;"> <%=  board.escape("title") %>  </div>
       <form class="edit_board_title hide" id="<%=board.id%>">
         <input type="hidden" value="<%=board.id%>" name="board[id]">
         <input type="text" id="<%= board.id %>" class="form-control" name="board[title]" value="<%= board.get("title") %>" autocomplete="off" style="display: inline-block; width: 70%;">
@@ -12,7 +12,7 @@
       </form>
       <div class="boardMenu" style="float: left;">
         <div class="dropdown">
-          <a id="boardLabel" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+          <a id="boardLabel" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" style="cursor:pointer;">
             <span class="caret" style="color:white;"></span>
           </a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="boardLabel" style="right: auto; left: auto;">
@@ -76,7 +76,7 @@
       
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">Board Title: <%= board.escape("title") %></h3>
+          <h3 class="modal-title">Board Title: <strong><%= board.escape("title") %></strong></h3>
         </div>
 
         <div class="modal-body">

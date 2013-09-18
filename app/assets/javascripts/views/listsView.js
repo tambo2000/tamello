@@ -19,16 +19,34 @@ T.Views.List = Backbone.View.extend({
 	},
 
 	events: {
-    "click a.new_card_link": "toggleNewCardInput",
     "submit form.new_card_form": "createCard",
-    "click button.exit_card_input": "toggleNewCardInput",
     "click button.delete-card": "deleteCard",
     "click button.delete-list": "deleteList",
-    "mouseenter a.dropdown-toggle": "dropdownToggle",
+    "mouseenter .new_card_div": "showNewCardInput",
+    "mouseleave .new_card_div": "hideNewCardInput",
+    // "mouseleave .new_card_form": "hideNewCardInput",    
+    // "click a.dropdown-toggle": "dropdownToggle",
     // "mouseleave div.listMenu": "dropdownToggle"
 	},
 
+  showNewCardInput: function(event) {   
+    // $("#" + event.target.id + ".new_card_form").clearQueue();
+    $("#" + event.target.id + ".new_card_link").finish();
+    $("#" + event.target.id + ".new_card_form").show(400);
+    $("#" + event.target.id + ".new_card_link").hide(400);
+    $("#" + event.currentTarget.id + ".form-control").focus();
+  },
+
+  hideNewCardInput: function(event) {
+    $("#" + event.currentTarget.id + ".new_card_form").finish();
+    // $("#" + event.currentTarget.id + ".new_card_link").clearQueue();
+    $("#" + event.currentTarget.id + ".new_card_form").hide(400);
+    $("#" + event.currentTarget.id + ".new_card_link").show(400);
+    $("#" + event.currentTarget.id + ".form-control").val("");
+  },
+
   dropdownToggle: function(event) {
+    console.log("clicked");
     var that = this;
     that.$("#" + event.currentTarget.id + ".dropdown-toggle").dropdown('toggle');
   },
@@ -49,6 +67,7 @@ T.Views.List = Backbone.View.extend({
     that.$("#" + event.currentTarget.id + ".card").toggle( "drop", {direction: "left"} , 400, function() {
       card.destroy();
       that.render();
+      that.updatePositions();
       $('.modal-backdrop').remove();
     });
   },
@@ -93,31 +112,27 @@ T.Views.List = Backbone.View.extend({
         that.collection.add(addedCard);
       },
       update: function(event, ui) {
-        // return array of card ids in correct order
-        var sortedIDsArr = that.$("div.cards" + that.model.id).sortable( "toArray" );
-        sortedIDsArr = _.map(sortedIDsArr, function(ID) {
-          return parseInt(ID);
-        });
-        
-
-        // update position attribute of each card and save to server
-        that.collection.each( function(card) {
-          card.set("list_id", that.model.id);
-          card.set("position", _.indexOf(sortedIDsArr, card.id) );
-          card.save();
-        });
+        that.updatePositions();
       }
     });
     that.delegateEvents();
     return that;
 	},
 
-  toggleNewCardInput: function (event) {
-    event.preventDefault();
+  updatePositions: function() {
+    var that = this;
+    // return array of card ids in correct order
+    var sortedIDsArr = that.$("div.cards" + that.model.id).sortable( "toArray" );
+    sortedIDsArr = _.map(sortedIDsArr, function(ID) {
+      return parseInt(ID);
+    });
 
-    $("#" + event.target.id + ".new_card_form").toggleClass("hide");
-    $("#" + event.target.id + ".new_card_link").toggleClass("hide");
-    $("input.form-control").focus();
+    // update position attribute of each card and save to server
+    that.collection.each( function(card) {
+      card.set("list_id", that.model.id);
+      card.set("position", _.indexOf(sortedIDsArr, card.id) );
+      card.save();
+    });
   },
 
 	createCard: function (event) {
@@ -125,8 +140,18 @@ T.Views.List = Backbone.View.extend({
     var that = this;
     var formData = $(event.currentTarget).serializeJSON();
     var card = new T.Models.Card(formData.card);
-
+    var tempCard = card.clone();
+    tempCard.id = "temp";
     var comments = new T.Collections.Comments();
+
+    // display a temporary card so app feels snappy
+    var tempCardView = new T.Views.Card({
+      model: tempCard,
+      collection: comments
+    })
+    that.$(".connectedListSortable").append(tempCardView.render().$el);
+    that.$("#temp.card").css( "display", "none");
+    that.$("#temp.card").toggle( "drop", {direction: "left"} , 400);
 
     // don't allow blank cards
     if (card.get("title") !== "") {
@@ -134,26 +159,22 @@ T.Views.List = Backbone.View.extend({
       card.save({}, {
         success: function(resp) {
           console.log("successful card save");
-          comments.card_id = card.id;
-          comments.fetch({
-            success: function(resp) {
-              var cardView = new T.Views.Card({
-                model: card,
-                collection: comments
-              })
-              that.$(".connectedListSortable").append(cardView.render().$el);
-              that.$("#" + card.id + ".card").css( "display", "none");
-              that.$("#" + card.id + ".card").toggle( "drop", {direction: "left"} , 400);
-            },
-            error: function(resp) {
-              console.log("bad comments fetch");
-            }
-          }) 
+          
+          var cardView = new T.Views.Card({
+            model: card,
+            collection: comments
+          });
+
+          // give time for animation to finish before replacing temporary card with real card
+          setTimeout(function() {
+            that.$("#temp.card").replaceWith(cardView.render().$el);
+          }, 800);
         },
         error: function(resp) {
           console.log("bad card save");
         }
       });
+
       // clear input field
       event.currentTarget.children[1].value = "";
     } else {

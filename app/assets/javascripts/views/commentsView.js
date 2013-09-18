@@ -20,13 +20,13 @@ T.Views.Comment = Backbone.View.extend({
 	showDeleteButton: function(event) {
 		var that = this;
 		console.log("showing delete");
-		that.$(".comment-delete").removeClass("hide");
+		that.$(".comment-delete").addClass("visible", 200);
 	},
 
 	hideDeleteButton: function(event) {
 		var that = this;
 		console.log("hiding delete");
-		that.$(".comment-delete").addClass("hide");
+		that.$(".comment-delete").removeClass("visible", 200);
 	},
 
 	render: function() {

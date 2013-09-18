@@ -120,6 +120,10 @@ body {
 	/*padding: 5px;*/
 }
 
+.card:hover {
+	border-color: $header_color;
+}
+
 .card_placeholder {
 	background-color: $card_placeholder_color;
 }
@@ -182,9 +186,9 @@ a.show-card-button {
 	position: relative;
 }
 
-.list:hover {
+/*.list:hover {
 	cursor: pointer;
-}
+}*/
 
 .list:active {
 	cursor: move;
@@ -192,6 +196,7 @@ a.show-card-button {
 
 .list_placeholder {
 	background-color: white;
+	width: 350px;
 }
 
 td { 
@@ -247,6 +252,18 @@ td {
 
 .hide {
 	display: none;
+}
+
+.comment-delete {
+	opacity: 0;
+}
+
+.invisible {
+	opacity: 0;
+}
+
+.visible {
+	opacity: 1;
 }
 
 .card>.btn /*.card>.btn:active*/ {

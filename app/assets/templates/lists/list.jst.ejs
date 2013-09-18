@@ -29,13 +29,13 @@
 
 
   <!-- Button trigger show Card input field -->
-  <a class="new_card_link btn" id="<%=list.id%>" style="background-color:#aaafb5; width:95%; border-width:3px; border-color:#d4dbe2; border-radius:8px; margin: auto; display: block; margin-top:3px; margin-bottom:3px;">Add a Card...</a>
-  <form class="new_card_form hide" id="<%=list.id%>">
-    <input type="hidden" value="<%=list.id%>" name="card[list_id]">
-    <input type="text" class="form-control" name="card[title]" autocomplete="off">
-    <input type="submit" value="Create Card" class="btn btn-sm btn-primary create_card" style="margin: 3px; float:right;">
-    <button type="button" class="btn btn-sm btn-primary exit_card_input" id="<%=list.id%>" style="margin: 3px; float:right; font-size: 9pt; font-weight: bold;">X</button>
-  </form>
+  <div class="new_card_div" id="<%=list.id%>">
+    <a class="new_card_link btn" id="<%=list.id%>" style="background-color:#aaafb5; width:95%; border-width:3px; border-color:#d4dbe2; border-radius:8px; margin: auto; display: block; margin-top:3px; margin-bottom:3px;">Add a Card...</a>
+    <form class="new_card_form" id="<%=list.id%>" style="display:none;">
+      <input type="hidden" value="<%=list.id%>" name="card[list_id]">
+      <input type="text" class="form-control" id="<%=list.id%>" name="card[title]" placeholder="Add a Card..." autocomplete="off" style="margin-top:4px; margin-bottom:4px;">
+    </form>
+  </div>
 </div>
 
 <!-- Modal to confirm delete list-->
@@ -47,7 +47,7 @@
       
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">List Title: <%= list.escape("title") %></h3>
+          <h3 class="modal-title">List Title: <strong><%= list.escape("title") %></strong></h3>
         </div>
 
         <div class="modal-body">

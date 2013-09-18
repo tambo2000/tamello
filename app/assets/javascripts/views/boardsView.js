@@ -40,10 +40,9 @@ T.Views.BoardsIndexView = Backbone.View.extend({
 			var boardRowView = new T.Views.BoardRowView({
       	model: board
     	});
-    	// timeout += 150;
-    	// setTimeout(function() {
-				that.$("div.boardList").append(boardRowView.render().$el);
-			// }, timeout);
+    	
+			that.$("div.boardList").append(boardRowView.render().$el);
+			
     });
 
 		return that
@@ -92,19 +91,19 @@ T.Views.BoardView = Backbone.View.extend({
     "mouseup .listTitle": "toggleEditListTitleInput",
     "submit form.edit_list_title_form": "updateList",
     "click button.exit_edit_list_input": "toggleEditListTitleInput",
-		"click a.boardTitle": "toggleBoardTitleForm",
+		"click .boardTitle": "toggleBoardTitleForm",
 		"submit form.edit_board_title": "editBoardTitle",
 		"click button.exit_edit_board_input": "toggleBoardTitleForm",
 		"click button.delete-board": "deleteBoard",
-    "mouseenter div.boardMenu": "dropdownToggle"
+    // "click div.boardMenu": "dropdownToggle"
 	},
 
-	dropdownToggle: function(event) {
-    var that = this;
-    console.log("board dropdown");
+	// dropdownToggle: function(event) {
+ //    var that = this;
+ //    console.log("board dropdown");
     
-    that.$("#boardLabel.dropdown-toggle").dropdown('toggle');
-  },
+ //    that.$("#boardLabel.dropdown-toggle").dropdown('toggle');
+ //  },
 
 	deleteBoard: function(event) {
 		event.preventDefault();
@@ -263,12 +262,13 @@ T.Views.BoardView = Backbone.View.extend({
 				that.$(".listTable").sortable({
 					delay: 150,
 					forcePlaceholderSize: true,
-					placeholder: "list list_placeholder",
+					placeholder: "list list_placeholder cf",
 					opacity: 0.8,
 					tolerance: "intersect",
 					revert: 100,
 					start: function(event, ui) {
-		        ui.placeholder.css("width", ui.item.width() + 1 + "px");
+						console.log(ui.item.width());
+		        ui.placeholder.css("min-width", ui.helper.width() + 1 + "px");
 		        that.dragged = true;
 					},
 					update: function(event, ui) {

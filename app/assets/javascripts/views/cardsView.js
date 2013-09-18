@@ -27,7 +27,7 @@ T.Views.Card = Backbone.View.extend({
 		"mouseenter .modal-footer": "showModalFooter",
 		"mouseleave .modal-footer": "hideModalFooter",
 		"submit .new-comment-form": "createComment",
-		"click a.comment-delete": "deleteComment"
+		"click .comment-delete": "deleteComment"
 	},
 
 	deleteComment: function(event) {
@@ -87,22 +87,22 @@ T.Views.Card = Backbone.View.extend({
 		}
 	},
 
-	test: function(event) {
-		console.log("testing");
-	},
-
 	showModalFooter: function(event) {
 		var that = this;
 		console.log("entering");
-		that.$(".modal-footer-content").removeClass("hide");
-		that.$(".modal-down-arrow").addClass("hide");
+		// that.$(".modal-footer-content").removeClass("hide");
+		that.$(".modal-footer-content").show(300);
+		// that.$(".modal-down-arrow").addClass("hide");
+		that.$(".modal-down-arrow").hide(300);
 	},
 
 	hideModalFooter: function(event) {
 		var that = this;
 		console.log("exiting");
-		that.$(".modal-footer-content").addClass("hide");
-		that.$(".modal-down-arrow").removeClass("hide");
+		// that.$(".modal-footer-content").addClass("hide");
+		that.$(".modal-footer-content").hide(300);
+		// that.$(".modal-down-arrow").removeClass("hide");
+		that.$(".modal-down-arrow").show(300);
 	},
 
 	colorDate: function() {
@@ -223,19 +223,23 @@ T.Views.Card = Backbone.View.extend({
     var comments = new T.Collections.Comments();
 		comments.card_id = that.model.id;
 	
-		comments.fetch( { 
-			success: function(resp) {
-				that.collection = comments;
-				comments.each( function(comment) {
-					var commentView = new T.Views.Comment({
-						model: comment
-					})
+		if (that.model.id !== "temp") {
+			comments.fetch( { 
+				success: function(resp) {
+					that.collection = comments;
+					comments.each( function(comment) {
+						var commentView = new T.Views.Comment({
+							model: comment
+						})
 
-					that.$(".comment-list").append(commentView.render().el);
-				});
-				that.displayComments();
-			}
-		});
+						that.$(".comment-list").append(commentView.render().el);
+					});
+					that.displayComments();
+				}
+			});
+		} else {
+			that.displayComments();
+		}
 
     that.$( "#datepicker" + that.model.id ).datepicker({
       dateFormat: "D M d yy",
