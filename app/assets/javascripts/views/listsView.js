@@ -24,23 +24,20 @@ T.Views.List = Backbone.View.extend({
     "click button.delete-list": "deleteList",
     "mouseenter .new_card_div": "showNewCardInput",
     "mouseleave .new_card_div": "hideNewCardInput",
-    // "mouseleave .new_card_form": "hideNewCardInput",    
-    // "click a.dropdown-toggle": "dropdownToggle",
-    // "mouseleave div.listMenu": "dropdownToggle"
 	},
 
   showNewCardInput: function(event) {   
-    // $("#" + event.target.id + ".new_card_form").clearQueue();
-    $("#" + event.target.id + ".new_card_link").finish();
-    $("#" + event.target.id + ".new_card_form").show(400);
-    $("#" + event.target.id + ".new_card_link").hide(400);
-    $("#" + event.currentTarget.id + ".form-control").focus();
+    $("#" + event.currentTarget.id + ".new_card_form").delay(500).show(400);
+    $("#" + event.currentTarget.id + ".new_card_link").delay(500).hide(200);
+    setTimeout( function() {
+      $("#" + event.currentTarget.id + ".form-control").focus();
+    }, 550);
   },
 
   hideNewCardInput: function(event) {
-    $("#" + event.currentTarget.id + ".new_card_form").finish();
-    // $("#" + event.currentTarget.id + ".new_card_link").clearQueue();
-    $("#" + event.currentTarget.id + ".new_card_form").hide(400);
+    $("#" + event.currentTarget.id + ".new_card_link").clearQueue();
+    $("#" + event.currentTarget.id + ".new_card_form").clearQueue();
+    $("#" + event.currentTarget.id + ".new_card_form").hide(200);
     $("#" + event.currentTarget.id + ".new_card_link").show(400);
     $("#" + event.currentTarget.id + ".form-control").val("");
   },
