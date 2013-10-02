@@ -14,6 +14,9 @@ class SessionsController < ApplicationController
     	session[:user_id] = user.id
       session[:username] = user.username
       self.current_user = user
+      if user.username == "Demo"
+        resetDemoAccount!
+      end
       redirect_to boards_url
     end
   end

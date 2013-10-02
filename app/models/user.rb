@@ -37,6 +37,18 @@ class User < ActiveRecord::Base
   	self.save!
   end
 
+  def create_defaults
+    Board.create_defaults(self.id)
+    board = self.boards.first
+
+    List.create_defaults(board.id)
+    lists = board.lists
+
+    Card.create_defaults1(lists[0].id)
+    Card.create_defaults2(lists[1].id)
+    Card.create_defaults3(lists[2].id)
+  end
+
   private
   def ensure_session_token
   	self.session_token ||= SecureRandom::urlsafe_base64(16)

@@ -19,4 +19,8 @@ class Board < ActiveRecord::Base
   	super(options)
   end
 
+  def self.create_defaults(user_id)
+    Board.new(title: "My First Board", user_id: user_id).save
+  end
+
 end
